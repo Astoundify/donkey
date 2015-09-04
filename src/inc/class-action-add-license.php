@@ -27,7 +27,7 @@ class Donkey_Add_License {
         $code = isset( $_REQUEST[ 'purchase-key' ] ) ? esc_attr( $_REQUEST[ 'purchase-key' ] ) : false;
 
         if ( ! $code ) {
-            return; // do soemthing
+            return donkey()->message = __( 'Please add a license code.', 'donkey' );
         }
 
         $response = donkey()->api->authenticated_request( 'market/buyer/purchase', array(
