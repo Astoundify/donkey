@@ -1,8 +1,11 @@
 <?php if ( ! $user->get_refresh_token() ) : ?>
 
-	<a href="<?php echo donkey()->oauth->auth_url(); ?>"><?php _e( 'Connect with Envato' ); ?></a>
+	<p><?php _e( 'Hey there! Before you can add a license code you need to first connect your Envato account.', 'donkey' ); ?></p>
+	<p><a href="<?php echo donkey()->oauth->auth_url(); ?>" class="button"><?php _e( 'Connect to Envato' ); ?></a></p>
 
 <?php else : ?> 
+
+	<p><?php printf( __( 'Welcome %s <a href="%s">(disconnect)</a>. Manage your licenses below.', 'donkey' ), $user->get_username(), donkey()->oauth->unauth_url() ); ?></p>
 
 	<ul>
 		<li><a href="<?php echo esc_url( add_query_arg( 'donkey-page', 'add-license', donkey_get_page_url( 'licenses' )  ) ); ?>"><?php _e( 'Add License', 'donkey' ); ?></a></li>

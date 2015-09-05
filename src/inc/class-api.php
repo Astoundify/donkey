@@ -49,7 +49,11 @@ class Donkey_Envato_API {
     }
 
     private function get_url( $action, $args ) {
-        $base = trailingslashit( $this->api_base . $action );
+		if ( filter_var( $action, FILTER_VALIDATE_URL ) ) {
+			$base = $action;
+		}else {
+			$base = trailingslashit( $this->api_base . $action );
+		}
 
         return esc_url( add_query_arg( $args, $base ) );
     }

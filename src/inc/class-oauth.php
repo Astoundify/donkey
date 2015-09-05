@@ -74,11 +74,11 @@ class Donkey_Envato_oAuth {
         $response = $this->request( $url, $request_args );
 
         if ( empty( $response->access_token ) ) {
-            return; //display error
+            return donkey()->flash->set( 'Unable to connect to Envato', 'donkey' );
         }
 
         $user = donkey_get_user();
-        $user->save_access_token( $response->access_token, $response->expires );
+        $user->save_access_token( $response->access_token, 3600 );
         $user->save_refresh_token( $response->refresh_token );
     }
 
@@ -92,6 +92,15 @@ class Donkey_Envato_oAuth {
         );
 
         return esc_url( add_query_arg( $args, $base ) );
+    }
+
+    public function unauth_url() {
+        $base = donkey_get_page_url( 'licenses' );
+        $args = array(
+            'donkey-action' => 'disconnect-oauth',
+        );
+
+        return esc_url( wp_nonce_url( add_query_arg( $args, $base ), 'disconnect-oauth' ) );
     }
 
 }
