@@ -5,10 +5,16 @@
 
 <?php else : ?> 
 
-	<p><?php printf( __( 'Welcome %s <a href="%s">(disconnect)</a>. Manage your licenses below.', 'donkey' ), $user->get_username(), donkey()->oauth->unauth_url() ); ?></p>
+	<p><?php printf( 
+		__( 'Welcome <img src="%1$s" alt="%2$s" />%1$ss <a href="%3$s">(disconnect)</a>. Manage your licenses below.', 'donkey' ),
+		$user->get_envato_image(),
+		$user->get_envato_username(), 
+		donkey()->oauth->unauth_url() 
+	); ?></p>
 
 	<ul>
 		<li><a href="<?php echo esc_url( add_query_arg( 'donkey-page', 'add-license', donkey_get_page_url( 'licenses' )  ) ); ?>"><?php _e( 'Add License', 'donkey' ); ?></a></li>
+		<li><a href="http://themeforest.net/user/astoundify/portfolio"><?php _e( 'Purchase Licenses', 'donkey' ); ?></a></li>
 	</ul>
 
 	<?php if ( ! empty( $licenses ) ) : ?>

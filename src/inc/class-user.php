@@ -16,20 +16,44 @@ class Donkey_User {
         $this->ID = $this->user->ID;
     }
 
-	public function get_username() {
-		if ( ! $this->user->envato_username ) {
-	        $response = donkey()->api->authenticated_request( 'https://api.envato.com/v1/market/private/user/username.json', array() );
+	public function get_envato_account() {
+		$response = donkey()->api->authenticated_request( 'https://api.envato.com/v1/market/private/user/username.json', array() );
 
-			if ( ! isset( $response->error ) ) {
-				add_user_meta( $this->ID, 'envato_username', $response->username, true );
+		if ( ! isset( $response->error ) ) {
+			add_user_meta( $this->ID, 'envato_username', $response->username, true );
+		}
 
-				return $response->username;
-			} else {
-				return $user->user_login;
+		$save = array(
+			'image', 'firstname', 'surname', 'country'
+		);
+		
+		$response = donkey()->api->authenticated_request( 'https://api.envato.com/v1/market/private/user/account.json', array() );
+
+		print_r( $response );
+
+		if ( ! isset( $response->error ) ) {
+			foreach ( $save as $item ) {
+				add_user_meta( $this->ID, 'envato_' . $item, $response->account->$$item, true );
 			}
 		}
 
+		add_user_meta( $this->ID, 'envato_account', true, true );
+	}
+
+	public function get_envato_username() {
+		// if ( ! $this->user->envato_account ) {
+			$this->get_envato_account();
+		// }
+
 		return $this->user->envato_username;
+	}
+
+	public function get_envato_image() {
+		if ( ! $this->user->envato_account ) {
+			$this->get_envato_account();
+		}
+		
+		return $this->user->envato_image;
 	}
 
     public function get_access_token() {
