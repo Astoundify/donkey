@@ -8,26 +8,14 @@ class Donkey_Add_License {
     }
 
     public function dashboard_content() {
-?>
-        <form action="" method="POST">
-            <p>
-                <label for="code"><?php _e( 'License Code', 'donkey' ); ?></label>
-                <input type="text" name="purchase-key" class="regular-text" placeholder="" />
-            </p>
-            <p>
-                <input type="submit" name="submit" value="<?php _e( 'Add License', 'donkey' ); ?>" />
-                <input type="hidden" name="donkey-action" value="add-license" />
-                <?php wp_nonce_field( 'add-license' ); ?>
-            </p>
-        </form>
-<?php
+		return donkey()->template->get( 'dashboard-add-license.php' );;
     }
 
     public function add_license() {
         $code = isset( $_REQUEST[ 'purchase-key' ] ) ? esc_attr( $_REQUEST[ 'purchase-key' ] ) : false;
 
         if ( ! $code ) {
-            return donkey()->message = __( 'Please add a license code.', 'donkey' );
+            return donkey()->flash->set( __( 'Please add a license code.', 'donkey' ) );
         }
 
         $response = donkey()->api->authenticated_request( 'market/buyer/purchase', array(
@@ -37,7 +25,7 @@ class Donkey_Add_License {
 		$error = false;
 
 		if ( isset( $response->error ) ) {
-			$error = donkey()->message = $response->description;
+			$error = donkey()->flash->set( $response->description );
 		}
 
 		if ( ! $error ) {
@@ -47,7 +35,7 @@ class Donkey_Add_License {
 				// ghetto redirect
 				unset( $_REQUEST[ 'donkey-page' ] );
 
-				return donkey()->message = __( 'License already exists.', 'donkey' );
+				return donkey()->flash->set( __( 'License already exists.', 'donkey' ) );
 			}
 
 			$data = array(
@@ -60,12 +48,12 @@ class Donkey_Add_License {
 			);
 
 			if ( $license->insert( $data ) ) {
-				donkey()->message = __( 'License added', 'donkey' );
+				donkey()->flash->set( __( 'License added', 'donkey' ) );
 
 				// ghetto redirect
 				unset( $_REQUEST[ 'donkey-page' ] );
 			} else {
-				donkey()->message = __( 'Unable to add license. Is it valid?', 'donkey' );
+				donkey()->flash->set( __( 'Unable to add license. Is it valid?', 'donkey' ) );
 			}
 		}
     }

@@ -18,8 +18,8 @@ class Donkey_Shortcode_Dashboard {
             return __( 'Please log in.', 'astoundify-rcp-envato' );
         }
 
-		if ( donkey()->message ) {
-			donkey()->template->get( 'notice.php', array( 'message' => donkey()->message ) );
+		if ( donkey()->flash->has_flash() ) {
+			donkey()->template->get( 'notice.php', array( 'message' => donkey()->flash->get_flash() ) );
 		}
 
         if ( ! empty( $_REQUEST[ 'donkey-page' ] ) ) {

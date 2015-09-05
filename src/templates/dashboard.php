@@ -8,6 +8,8 @@
 		<li><a href="<?php echo esc_url( add_query_arg( 'donkey-page', 'add-license', donkey_get_page_url( 'licenses' )  ) ); ?>"><?php _e( 'Add License', 'donkey' ); ?></a></li>
 	</ul>
 
+	<?php if ( ! empty( $licenses ) ) : ?>
+
 	<table>
 		<thead>
 			<tr>
@@ -39,6 +41,6 @@
 		</tbody>
 	</table>
 
-	<form>
+	<?php endif; ?>
 
 <?php endif; ?>

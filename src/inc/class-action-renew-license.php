@@ -10,28 +10,15 @@ class Donkey_Renew_License {
     public function dashboard_content() {
 		$id = isset( $_REQUEST[ 'id' ] ) ? absint( $_REQUEST[ 'id' ] ) : false;
 		$license = donkey_get_license( $id );
-?>
-		<p>Still need support? <a href="<?php echo $license->get_item_url(); ?>">Visit the item page</a> to renew your support. Once completed, enter your license key below.</p>
-
-        <form action="" method="POST">
-            <p>
-                <label for="code"><?php _e( 'License Code', 'donkey' ); ?></label>
-                <input type="text" name="purchase-key" class="regular-text" placeholder="" />
-            </p>
-            <p>
-                <input type="submit" name="submit" value="<?php _e( 'Renew Support', 'donkey' ); ?>" />
-                <input type="hidden" name="donkey-action" value="renew-license" />
-                <?php wp_nonce_field( 'renew-license' ); ?>
-            </p>
-        </form>
-<?php
+		
+		return donkey()->template->get( 'dashboard-renew-license.php', array( 'license' => $license ) );
     }
 
     public function update_license() {
         $code = isset( $_REQUEST[ 'purchase-key' ] ) ? esc_attr( $_REQUEST[ 'purchase-key' ] ) : false;
 
         if ( ! $code ) {
-            return; // do soemthing
+            return donkey()->flash->set( __( 'Please enter a license', 'donkey' ) );
         }
 
         $response = donkey()->api->authenticated_request( 'market/buyer/purchase', array(
@@ -41,14 +28,14 @@ class Donkey_Renew_License {
 		$error = false;
 
 		if ( isset( $response->error ) ) {
-			$error = donkey()->message = $response->description;
+			$error = donkey()->flash->set( $response->description );
 		}
 
 		if ( ! $error ) {
 			$license = donkey_get_license( $code, 'code' );
 
 			if ( ! $license ) {
-				return donkey()->message = __( 'Unable to locate previous license code.', 'donkey' );
+				return donkey()->flash->set( __( 'Unable to locate previous license code.', 'donkey' ) );
 			}
 
 			$data = array(
@@ -57,12 +44,12 @@ class Donkey_Renew_License {
 			);
 
 			if ( $license->update( $data ) ) {
-				donkey()->message = __( 'License renewed.', 'astoundify-rcp-envato' );
+				donkey()->flash->set( __( 'License renewed.', 'astoundify-rcp-envato' ) );
 
 				// ghetto redirect
 				unset( $_REQUEST[ 'donkey-page' ] );
 			} else {
-				donkey()->message = __( 'Error renewing license. Have you renewed your support on ThemeForest.net?', 'donkey' );
+				donkey()->flash->set( __( 'Error renewing license. Have you renewed your support on ThemeForest.net?', 'donkey' ) );
 			}
 		}
     }

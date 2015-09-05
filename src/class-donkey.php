@@ -30,6 +30,7 @@ class Donkey {
     public function includes() {
         $files = array(
             'class-helpers.php',
+            'class-flash.php',
             'class-template.php',
             'class-api.php',
             'class-user.php',
@@ -49,6 +50,7 @@ class Donkey {
 
     public function setup() {
         $this->helpers    = new Donkey_Helpers();
+        $this->flash      = new Donkey_Flash();
 		$this->template   = new Donkey_Template();
         $this->api        = new Donkey_Envato_API();
         $this->oauth      = new Donkey_Envato_oAuth();
