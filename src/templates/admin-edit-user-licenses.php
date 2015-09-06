@@ -1,6 +1,4 @@
 
-	<?php if ( ! empty( $licenses ) ) : ?>
-
 	<h3><?php _e( 'Licenses', 'donkey' ); ?></h3>
 
 	<p><?php _e( 'Remove a code from a row to delete it.', 'donkey' ); ?></p>
@@ -16,7 +14,7 @@
 			</tr>
 		</thead>
 		<tbody>
-		<?php foreach ( $licenses as $key => $license ) : $license = donkey_get_license( $license ); ?>
+		<?php if ( ! empty( $licenses ) ) : foreach ( $licenses as $key => $license ) : $license = donkey_get_license( $license ); ?>
 		<tr>
 			<td>
 				<input type="text" name="donkey[licenses][<?php echo $key; ?>][item_id]" value="<?php echo $license->get_item_id(); ?>" />
@@ -35,7 +33,7 @@
 				<input type="text" name="donkey[licenses][<?php echo $key; ?>][expiration]" value="<?php echo $license->get_expiration(); ?>" />
 			</td>
 		</tr>
-		<?php endforeach; ?>
+		<?php endforeach; endif; ?>
 		<tr>
 			<td>
 				<input type="text" name="donkey[licenses][999][item_id]" value="" />
@@ -55,5 +53,3 @@
 		</tr>
 		</tbody>
 	</table>
-
-	<?php endif; ?>

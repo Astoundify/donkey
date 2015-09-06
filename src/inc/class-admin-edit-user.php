@@ -6,7 +6,7 @@ class Donkey_Admin_Edit_User {
 		add_action( 'show_user_profile', array( $this, 'display_licenses' ) );
 		add_action( 'edit_user_profile', array( $this, 'display_licenses' ) );
 
-		add_action( 'profile_update', array( $this, 'update_profile' ) );
+		add_action( 'personal_options_update', array( $this, 'update_profile' ) );
 		add_action( 'edit_user_profile_update', array( $this, 'update_profile' ) );
 	}
 
@@ -20,7 +20,7 @@ class Donkey_Admin_Edit_User {
 		) );
 	}
 
-	public function update_profile() {
+	public function update_profile( $user_id ) {
 		$donkey = isset( $_POST[ 'donkey' ] ) ? $_POST[ 'donkey' ] : false;
 
 		if ( ! $donkey ) {
@@ -39,7 +39,7 @@ class Donkey_Admin_Edit_User {
 			if ( '' == $license[ 'code' ] && isset( $license[ 'id' ] ) ) {
 				$l->delete( $license[ 'id' ] );
 			} else {
-				$license[ 'user_id' ] = donkey_get_user()->ID;
+				$license[ 'user_id' ] = $user_id;
 
 				if ( ! isset( $license[ 'id' ] ) && '' != $license[ 'code' ] ) {
 					$l->insert( $license );
