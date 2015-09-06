@@ -61,6 +61,8 @@ class Donkey_License {
     public function update( $data ) {
 		global $wpdb;
 
+		$license = false;
+
 		if ( isset( $data[ 'id' ] ) ) {
 			$license = $this->get( $data[ 'id' ] );
 		}

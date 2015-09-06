@@ -29,8 +29,6 @@ class Donkey_User {
 		
 		$response = donkey()->api->authenticated_request( 'https://api.envato.com/v1/market/private/user/account.json', array() );
 
-		print_r( $response );
-
 		if ( ! isset( $response->error ) ) {
 			foreach ( $save as $item ) {
 				add_user_meta( $this->ID, 'envato_' . $item, $response->account->$$item, true );
@@ -41,9 +39,9 @@ class Donkey_User {
 	}
 
 	public function get_envato_username() {
-		// if ( ! $this->user->envato_account ) {
+		if ( ! $this->user->envato_account ) {
 			$this->get_envato_account();
-		// }
+		}
 
 		return $this->user->envato_username;
 	}

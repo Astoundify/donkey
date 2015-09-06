@@ -39,7 +39,8 @@ class Donkey {
             'class-shortcodes.php',
             'class-license.php',
             'class-settings.php',
-            'class-gravityforms.php',
+			'class-gravityforms.php',
+			'class-admin.php',
             'donkey-functions.php',
         );
 
@@ -58,6 +59,7 @@ class Donkey {
         $this->actions    = new Donkey_Actions();
         $this->settings   = new Donkey_Settings();
         $this->gf         = new Donkey_GravityForms();
+		$this->admin      = new Donkey_Admin();
     }
 
 }
