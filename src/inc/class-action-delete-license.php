@@ -19,7 +19,7 @@ class Donkey_Delete_License {
 			donkey()->flash->set( __( 'Unable to locate license', 'donkey' ) );
 		}
 
-		$delete = $license->delete( $id );
+		$delete = $license->delete();
 
 		donkey()->flash->set( __( 'License deleted.', 'donkey' ) );
     }

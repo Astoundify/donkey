@@ -55,7 +55,7 @@ class Donkey_Envato_oAuth {
         $response = $this->request( $url, $request_args );
 
         if ( empty( $response->access_token ) ) {
-            return; //display error
+			return false;
         }
 
         $user->save_access_token( $response->access_token, 3600 );

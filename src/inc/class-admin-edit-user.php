@@ -34,10 +34,11 @@ class Donkey_Admin_Edit_User {
 		}
 
 		foreach ( $licenses as $license ) {
-			$l = donkey_get_license();
+			$id = isset( $license[ 'id' ] ) ? $license[ 'id' ] : null;
+			$l  = donkey_get_license( $id );
 
 			if ( '' == $license[ 'code' ] && isset( $license[ 'id' ] ) ) {
-				$l->delete( $license[ 'id' ] );
+				$l->delete();
 			} else {
 				$license[ 'user_id' ] = $user_id;
 

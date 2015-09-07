@@ -13,5 +13,5 @@ function donkey_get_setting( $key, $default = false ) {
 }
 
 function donkey_get_page_url( $page ) {
-	return esc_url( get_permalink( donkey_get_setting( $page . '_page' ) ) );
+	return esc_url( get_permalink( donkey_get_setting( 'page_' . $page ) ) );
 }

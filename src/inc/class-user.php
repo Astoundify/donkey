@@ -91,4 +91,24 @@ class Donkey_User {
 		return $licenses;
 	}
 
+	public function validate_licenses() {
+		$licenses = $this->get_licenses();
+
+		if ( empty( $licenses ) ) {
+			return;
+		}
+
+		foreach ( $licenses as $license ) {
+			$license  = donkey_get_license( $license );
+			$response = donkey()->api->authenticated_request( 'market/buyer/purchase', array(
+				'code' => $license->get_code()
+			) );
+
+			// no longer valid
+			if ( isset( $response->error ) ) {
+				$license->delete();
+			}
+		}
+	}
+
 }

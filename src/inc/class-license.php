@@ -81,10 +81,10 @@ class Donkey_License {
 		return $license;
     }
 
-	public function delete( $id ) {
+	public function delete() {
 		global $wpdb;
 
-		return $wpdb->delete( $wpdb->prefix . 'donkey_licenses', array( 'id' => $id ), array( '%d' ) );
+		return $wpdb->delete( $wpdb->prefix . 'donkey_licenses', array( 'id' => $this->get_id() ), array( '%d' ) );
 	}
 
 	public function get_id() {

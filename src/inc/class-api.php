@@ -14,9 +14,11 @@ class Donkey_Envato_API {
 
     public function authenticated_request( $action, $args = array() ) {
         if ( ! $this->can_make_authenticated_request() ) {
-            donkey()->oauth->refresh_access_token( $action, $args );
-
-            return $this->authenticated_request( $action, $args );
+            if ( donkey()->oauth->refresh_access_token( $action, $args ) ) {
+				return $this->authenticated_request( $action, $args );
+			} else {
+				donkey()->flash->set( 'Unable to make request', 'donkey' );
+			}
         } else {
             return $this->make_authenticated_request( $action, $args );
         }
