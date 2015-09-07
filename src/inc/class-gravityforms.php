@@ -25,7 +25,11 @@ class Donkey_GravityForms {
 
 			return $form;
 		} else {
-			$form[ 'description' ] = '<a href="' . donkey()->oauth->auth_url() . '">' . __( 'Please authenticate with Envato again.', 'donkey' ) . '</a>';
+			ob_start();
+			donkey()->template->get( 'dashboard-oauth.php' );
+			$description = ob_get_clean();
+
+			$form[ 'description' ] = $description;
 			$form[ 'fields' ] = array();
 		}
 

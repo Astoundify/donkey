@@ -33,6 +33,12 @@ class Donkey_Settings {
                 'default' => '',
                 'type' => 'text'
 			),
+            'page_submit' => array(
+                'label' => __( 'Submit Page ID', 'donkey' ),
+                'section' => 'general',
+                'default' => '',
+                'type' => 'text'
+			),
             'gravityform' => array(
                 'label' => __( 'Gravity Form ID', 'donkey' ),
                 'section' => 'general',

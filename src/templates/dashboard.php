@@ -1,7 +1,6 @@
 <?php if ( ! $user->get_refresh_token() ) : ?>
 
-	<p><?php _e( 'Hey there! Before you can add a license code you need to first connect your Envato account.', 'donkey' ); ?></p>
-	<p><a href="<?php echo donkey()->oauth->auth_url(); ?>" class="button"><?php _e( 'Connect to Envato' ); ?></a></p>
+	<?php donkey()->template->get( 'dashboard-oauth.php' ); ?>
 
 <?php else : ?> 
 
@@ -15,6 +14,7 @@
 	<ul>
 		<li><a href="<?php echo esc_url( add_query_arg( 'donkey-page', 'add-license', donkey_get_page_url( 'licenses' )  ) ); ?>"><?php _e( 'Add License', 'donkey' ); ?></a></li>
 		<li><a href="http://themeforest.net/user/astoundify/portfolio"><?php _e( 'Purchase Licenses', 'donkey' ); ?></a></li>
+		<li><a href="<?php echo donkey_get_page_url( 'submit' ); ?>"><?php _e( 'Submit Ticket', 'donkey' ); ?></a></li>
 	</ul>
 
 	<?php if ( ! empty( $licenses ) ) : ?>
