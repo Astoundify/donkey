@@ -32,6 +32,7 @@ class Donkey {
             'class-helpers.php',
             'class-flash.php',
             'class-template.php',
+			'class-textdomain.php',
             'class-api.php',
             'class-user.php',
             'class-oauth.php',
@@ -53,6 +54,7 @@ class Donkey {
         $this->helpers    = new Donkey_Helpers();
         $this->flash      = new Donkey_Flash();
 		$this->template   = new Donkey_Template();
+		$this->textdomain = new Donkey_Textdomain();
         $this->api        = new Donkey_Envato_API();
         $this->oauth      = new Donkey_Envato_oAuth();
         $this->shortcodes = new Donkey_Shortcodes();
