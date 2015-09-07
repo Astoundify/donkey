@@ -15,3 +15,10 @@ function donkey_get_setting( $key, $default = false ) {
 function donkey_get_page_url( $page ) {
 	return esc_url( get_permalink( donkey_get_setting( 'page_' . $page ) ) );
 }
+
+function donkey_get_allowed_products() {
+	$whitelist = donkey_get_setting( 'product_whitelist' );
+	$whitelist = array_map( 'trim', explode( ',', $whitelist ) );
+
+	return $whitelist;
+}

@@ -31,6 +31,10 @@ class Donkey_Add_License {
 		if ( ! $error ) {
 			$license = donkey_get_license( $code, 'code' );
 
+			if ( ! in_array( $response->item->id, donkey_get_allowed_products() ) ) {
+				return donkey()->flash->set( 'This is not an Astoundify product', 'donkey' );
+			}
+
 			if ( $license->id ) {
 				// ghetto redirect
 				unset( $_REQUEST[ 'donkey-page' ] );

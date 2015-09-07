@@ -1,0 +1,27 @@
+{
+  "name": "donkey",
+  "version": "1.0.0",
+  "description": "Astoundify Support System",
+  "main": "gulpfile.js",
+  "dependencies": {
+    "gulp-sort": "^1.1.1",
+    "gulp-wp-pot": "^1.0.3"
+  },
+  "devDependencies": {
+    "gulp-sort": "^1.1.1",
+    "gulp-wp-pot": "^1.0.3"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Astoundify/donkey.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Astoundify/donkey/issues"
+  },
+  "homepage": "https://github.com/Astoundify/donkey#readme"
+}

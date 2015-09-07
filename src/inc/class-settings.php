@@ -39,6 +39,12 @@ class Donkey_Settings {
                 'default' => '',
                 'type' => 'text'
 			),
+            'product_whitelist' => array(
+                'label' => __( 'Product Whitelist', 'donkey' ),
+                'section' => 'general',
+                'default' => '',
+                'type' => 'text'
+            ),
             'gravityform' => array(
                 'label' => __( 'Gravity Form ID', 'donkey' ),
                 'section' => 'general',
