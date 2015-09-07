@@ -6,7 +6,7 @@
 <?php else : ?> 
 
 	<p><?php printf( 
-		__( 'Welcome <img src="%1$s" alt="%2$s" />%1$ss <a href="%3$s">(disconnect)</a>. Manage your licenses below.', 'donkey' ),
+		__( 'Welcome <img src="%1$s" alt="%2$s" style="width: 25px; height: 25px;vertical-align: middle;margin: -3px 5px 0;padding: 0;box-shadow: none;" />%2$s <a href="%3$s">(disconnect)</a>. Manage your licenses below.', 'donkey' ),
 		$user->get_envato_image(),
 		$user->get_envato_username(), 
 		donkey()->oauth->unauth_url() 

@@ -30,9 +30,10 @@ class Donkey_User {
 		$response = donkey()->api->authenticated_request( 'https://api.envato.com/v1/market/private/user/account.json', array() );
 
 		if ( ! isset( $response->error ) ) {
-			foreach ( $save as $item ) {
-				add_user_meta( $this->ID, 'envato_' . $item, $response->account->$$item, true );
-			}
+			update_user_meta( $this->ID, 'envato_image', $response->account->image );
+			update_user_meta( $this->ID, 'envato_firstname', $response->account->firstname );
+			update_user_meta( $this->ID, 'envato_surname', $response->account->surname );
+			update_user_meta( $this->ID, 'envato_country', $response->account->country );
 		}
 
 		add_user_meta( $this->ID, 'envato_account', true, true );
