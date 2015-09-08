@@ -18,19 +18,20 @@ class Donkey_GravityForms {
 	}
 
 	public function validate_licenses( $form ) {
-		if ( donkey()->api->can_make_authenticated_request() ) {
-			donkey_get_user()->validate_licenses();
-
-			$form[ 'description' ] = false;
+		if ( ! is_user_logged_in() ) {
+			$form[ 'fields' ] = array();
+			$form[ 'description' ] = donkey()->template->find( 'dashboard-login.php' );
 
 			return $form;
 		} else {
-			ob_start();
-			donkey()->template->get( 'dashboard-oauth.php' );
-			$description = ob_get_clean();
+			if ( donkey()->api->can_make_authenticated_request() ) {
+				donkey_get_user()->validate_licenses();
 
-			$form[ 'description' ] = $description;
-			$form[ 'fields' ] = array();
+				$form[ 'description' ] = false;
+			} else {
+				$form[ 'description' ] = donkey()->template->find( 'dashboard-oauth.php' );
+				$form[ 'fields' ] = array();
+			}
 		}
 
 		return $form;

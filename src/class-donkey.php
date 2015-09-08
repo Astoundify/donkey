@@ -43,7 +43,7 @@ class Donkey {
 			'class-gravityforms.php',
 			'class-helpscout.php',
 			'class-admin.php',
-            'donkey-functions.php',
+            'functions.php',
         );
 
         foreach ( $files as $file ) {

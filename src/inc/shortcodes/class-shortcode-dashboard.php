@@ -15,7 +15,7 @@ class Donkey_Shortcode_Dashboard {
         ob_start();
 
         if ( ! is_user_logged_in() ) {
-            return __( 'Please log in.', 'astoundify-rcp-envato' );
+            return '<a href="' . wp_login_url() . '">' . __( 'Please log in to continue.', 'donkey' ) . '</a>';
         }
 
 		if ( donkey()->flash->has() ) {

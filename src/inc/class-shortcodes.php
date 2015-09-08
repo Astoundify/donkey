@@ -17,7 +17,7 @@ class Donkey_Shortcodes {
         );
 
         foreach ( $files as $file ) {
-            require( trailingslashit( donkey()->plugin_dir ) . trailingslashit( 'inc' ) . $file );
+            require( trailingslashit( donkey()->plugin_dir ) . trailingslashit( 'inc/shortcodes' ) . $file );
         }
     }
 

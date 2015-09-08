@@ -17,7 +17,7 @@ class Donkey_Actions {
         );
 
         foreach ( $files as $file ) {
-            require( trailingslashit( donkey()->plugin_dir ) . trailingslashit( 'inc' ) . $file );
+            require( trailingslashit( donkey()->plugin_dir ) . trailingslashit( 'inc/actions' ) . $file );
         }
     }
 

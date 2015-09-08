@@ -10,6 +10,14 @@ class Donkey_Template {
 		include( $this->locate( $template_name, $template_path, $default_path ) );
 	}
 
+	public function find( $template_name, $args = array(), $template_path = 'donkey', $default_path = '' ) {
+		ob_start();
+
+		$this->get( $template_name, $args = array(), $template_path = 'donkey', $default_path = '' );
+
+		return ob_get_clean();
+	}
+
 	function locate( $template_name, $template_path = 'donkey', $default_path = '' ) {
 		$template = locate_template(
 			array(
