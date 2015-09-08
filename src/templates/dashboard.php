@@ -1,4 +1,4 @@
-<?php if ( ! $user->get_refresh_token() ) : ?>
+<?php if ( ! donkey()->api->can_make_authenticated_request() ) : ?>
 
 	<?php donkey()->template->get( 'dashboard-oauth.php' ); ?>
 

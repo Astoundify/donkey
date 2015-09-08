@@ -18,7 +18,20 @@ class Donkey_GravityForms {
 	}
 
 	public function validate_licenses( $form ) {
-		donkey_get_user()->validate_licenses();
+		if ( donkey()->api->can_make_authenticated_request() ) {
+			donkey_get_user()->validate_licenses();
+
+			$form[ 'description' ] = false;
+
+			return $form;
+		} else {
+			ob_start();
+			donkey()->template->get( 'dashboard-oauth.php' );
+			$description = ob_get_clean();
+
+			$form[ 'description' ] = $description;
+			$form[ 'fields' ] = array();
+		}
 
 		return $form;
 	}
