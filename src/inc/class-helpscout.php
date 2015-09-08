@@ -55,7 +55,7 @@ class Donkey_Helpscout {
 	 */
 	private function generateSignature() {
 		$str = $this->getJsonString();
-		$sc  = donkey_get_settig( 'helpscout_secret' );
+		$sc  = donkey_get_setting( 'helpscout_secret' );
 		
 		if ( $str ) {
 			return base64_encode( hash_hmac( 'sha1', $str, $sc, true ) );

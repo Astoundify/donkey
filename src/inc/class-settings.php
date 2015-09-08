@@ -33,12 +33,6 @@ class Donkey_Settings {
                 'default' => '',
                 'type' => 'text'
             ),
-            'helpscout_api' => array(
-                'label' => __( 'Helpscout API Key', 'donkey' ),
-                'section' => 'general',
-                'default' => '',
-                'type' => 'text'
-            ),
             'helpscout_email' => array(
                 'label' => __( 'Helpscout Email', 'donkey' ),
                 'section' => 'general',
