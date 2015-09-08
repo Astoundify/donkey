@@ -15,7 +15,7 @@ class Donkey_Shortcode_Dashboard {
         ob_start();
 
         if ( ! is_user_logged_in() ) {
-            return '<a href="' . wp_login_url() . '">' . __( 'Please log in to continue.', 'donkey' ) . '</a>';
+            return donkey()->template->find( 'dashboard-login.php' );
         }
 
 		if ( donkey()->flash->has() ) {
