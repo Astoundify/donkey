@@ -108,6 +108,12 @@ class Donkey_User {
 			// no longer valid
 			if ( isset( $response->error ) ) {
 				$license->delete();
+			} else {
+			// update expiration if changed
+				$license->update( array(
+					'id' => $license->get_id(),
+					'expiration' => $response->supported_until
+				) );
 			}
 		}
 	}
