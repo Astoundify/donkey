@@ -27,6 +27,24 @@ class Donkey_Settings {
                 'default' => '',
                 'type' => 'text'
             ),
+            'helpscout_secret' => array(
+                'label' => __( 'Helpscout Secret Key', 'donkey' ),
+                'section' => 'general',
+                'default' => '',
+                'type' => 'text'
+            ),
+            'helpscout_api' => array(
+                'label' => __( 'Helpscout API Key', 'donkey' ),
+                'section' => 'general',
+                'default' => '',
+                'type' => 'text'
+            ),
+            'helpscout_email' => array(
+                'label' => __( 'Helpscout Email', 'donkey' ),
+                'section' => 'general',
+                'default' => '',
+                'type' => 'text'
+            ),
             'product_whitelist' => array(
                 'label' => __( 'Product Whitelist', 'donkey' ),
                 'section' => 'general',

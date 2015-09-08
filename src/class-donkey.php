@@ -41,6 +41,7 @@ class Donkey {
             'class-license.php',
             'class-settings.php',
 			'class-gravityforms.php',
+			'class-helpscout.php',
 			'class-admin.php',
             'donkey-functions.php',
         );
@@ -51,17 +52,18 @@ class Donkey {
     }
 
     public function setup() {
-        $this->helpers    = new Donkey_Helpers();
-        $this->flash      = new Donkey_Flash();
-		$this->template   = new Donkey_Template();
-		$this->textdomain = new Donkey_Textdomain();
-        $this->api        = new Donkey_Envato_API();
-        $this->oauth      = new Donkey_Envato_oAuth();
-        $this->shortcodes = new Donkey_Shortcodes();
-        $this->actions    = new Donkey_Actions();
-        $this->settings   = new Donkey_Settings();
-        $this->gf         = new Donkey_GravityForms();
-		$this->admin      = new Donkey_Admin();
+        $this->helpers      = new Donkey_Helpers();
+        $this->flash        = new Donkey_Flash();
+		$this->template     = new Donkey_Template();
+		$this->textdomain   = new Donkey_Textdomain();
+        $this->api          = new Donkey_Envato_API();
+        $this->oauth        = new Donkey_Envato_oAuth();
+        $this->shortcodes   = new Donkey_Shortcodes();
+        $this->actions      = new Donkey_Actions();
+        $this->settings     = new Donkey_Settings();
+        $this->gravityforms = new Donkey_GravityForms();
+        $this->helpscout    = new Donkey_Helpscout();
+		$this->admin        = new Donkey_Admin();
     }
 
 }
