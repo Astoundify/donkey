@@ -1,4 +1,4 @@
-<p>Still need support? <a href="<?php echo $license->get_item_url(); ?>">Visit the item page</a> to renew your support. Once completed, enter your license key below.</p>
+<p>Still need support? <a href="<?php echo $license->get_item_url(); ?>?ref=Astoundify">Visit the item page</a> to renew your support. Once completed, enter your license key below.</p>
 
 <form action="" method="POST">
 	<p>

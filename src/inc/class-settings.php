@@ -27,6 +27,12 @@ class Donkey_Settings {
                 'default' => '',
                 'type' => 'text'
             ),
+            'product_whitelist' => array(
+                'label' => __( 'Product Whitelist', 'donkey' ),
+                'section' => 'general',
+                'default' => '',
+                'type' => 'text'
+            ),
             'page_licenses' => array(
                 'label' => __( 'Licenses Page ID', 'donkey' ),
                 'section' => 'general',
@@ -39,12 +45,6 @@ class Donkey_Settings {
                 'default' => '',
                 'type' => 'text'
 			),
-            'product_whitelist' => array(
-                'label' => __( 'Product Whitelist', 'donkey' ),
-                'section' => 'general',
-                'default' => '',
-                'type' => 'text'
-            ),
             'gravityform' => array(
                 'label' => __( 'Gravity Form ID', 'donkey' ),
                 'section' => 'general',
