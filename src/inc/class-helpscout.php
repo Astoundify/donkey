@@ -10,13 +10,13 @@ class Donkey_Helpscout {
     }
 
     public function add_rewrite_endpoints() {
-        add_rewrite_endpoint( 'helpscout', EP_PERMALINK | EP_PAGES );
+        add_rewrite_endpoint( 'helpscout', EP_PAGES );
     }
 
     public function template_redirect() {
         global $wp_query;
 
-        if ( isset( $wp_query->query_vars[ 'customer' ] ) ) {
+        if ( isset( $wp_query->query_vars[ 'helpscout' ] ) ) {
             echo json_encode( $this->getResponse() );
 
             exit();
