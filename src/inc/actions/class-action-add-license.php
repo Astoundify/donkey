@@ -8,7 +8,7 @@ class Donkey_Add_License {
     }
 
     public function dashboard_content() {
-		return donkey()->template->get( 'dashboard-add-license.php' );;
+        return donkey()->template->get( 'license-add.php' );;
     }
 
     public function add_license() {
@@ -22,46 +22,46 @@ class Donkey_Add_License {
             'code' => $code
         ) );
 
-		$error = false;
+        $error = false;
 
-		if ( isset( $response->error ) ) {
-			$error = donkey()->flash->set( $response->description );
-		}
+        if ( isset( $response->error ) ) {
+            $error = donkey()->flash->set( $response->description );
+        }
 
-		if ( ! $error ) {
-			$license = donkey_get_license( $code, 'code' );
+        if ( ! $error ) {
+            $license = donkey_get_license( $code, 'code' );
 
-			$whitelist = donkey_get_allowed_products();
+            $whitelist = donkey_get_allowed_products();
 
-			if ( ! empty( $whitelist ) && ! in_array( $response->item->id, $whitelist ) ) {
-				return donkey()->flash->set( 'This is not an Astoundify product', 'donkey' );
-			}
+            if ( ! empty( $whitelist ) && ! in_array( $response->item->id, $whitelist ) ) {
+                return donkey()->flash->set( 'This is not an Astoundify product', 'donkey' );
+            }
 
-			if ( $license->id ) {
-				// ghetto redirect
-				unset( $_REQUEST[ 'donkey-page' ] );
+            if ( $license->id ) {
+                // ghetto redirect
+                unset( $_REQUEST[ 'donkey-page' ] );
 
-				return donkey()->flash->set( __( 'License already exists.', 'donkey' ) );
-			}
+                return donkey()->flash->set( __( 'License already exists.', 'donkey' ) );
+            }
 
-			$data = array(
-				'item_id' => $response->item->id,
-				'item_name' => $response->item->name,
-				'item_url' => $response->item->url,
-				'code' => $code,
-				'expiration' => $response->supported_until,
-				'support_amount' => $response->support_amount
-			);
+            $data = array(
+                'item_id' => $response->item->id,
+                'item_name' => $response->item->name,
+                'item_url' => $response->item->url,
+                'code' => $code,
+                'expiration' => $response->supported_until,
+                'support_amount' => $response->support_amount
+            );
 
-			if ( $license->insert( $data ) ) {
-				donkey()->flash->set( __( 'License added', 'donkey' ) );
+            if ( $license->insert( $data ) ) {
+                donkey()->flash->set( __( 'License added', 'donkey' ) );
 
-				// ghetto redirect
-				unset( $_REQUEST[ 'donkey-page' ] );
-			} else {
-				donkey()->flash->set( __( 'Unable to add license. Is it valid?', 'donkey' ) );
-			}
-		}
+                // ghetto redirect
+                unset( $_REQUEST[ 'donkey-page' ] );
+            } else {
+                donkey()->flash->set( __( 'Unable to add license. Is it valid?', 'donkey' ) );
+            }
+        }
     }
 
 }

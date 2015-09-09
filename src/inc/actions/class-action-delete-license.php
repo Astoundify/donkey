@@ -7,21 +7,21 @@ class Donkey_Delete_License {
     }
 
     public function delete_license() {
-		$id = isset( $_REQUEST[ 'license' ] ) ? absint( $_REQUEST[ 'license' ] ) : false;
+        $id = isset( $_REQUEST[ 'license' ] ) ? absint( $_REQUEST[ 'license' ] ) : false;
 
         if ( ! $id ) {
-			return donkey()->flash->set( __( 'Unable to locate license', 'donkey' ) );
+            return donkey()->flash->set( __( 'Unable to locate license', 'donkey' ) );
         }
 
-		$license = donkey_get_license( $id );
+        $license = donkey_get_license( $id );
 
-		if ( ! $license ) {
-			donkey()->flash->set( __( 'Unable to locate license', 'donkey' ) );
-		}
+        if ( ! $license ) {
+            donkey()->flash->set( __( 'Unable to locate license', 'donkey' ) );
+        }
 
-		$delete = $license->delete();
+        $delete = $license->delete();
 
-		donkey()->flash->set( __( 'License deleted.', 'donkey' ) );
+        donkey()->flash->set( __( 'License deleted.', 'donkey' ) );
     }
 
 }

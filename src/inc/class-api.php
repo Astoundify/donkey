@@ -15,10 +15,10 @@ class Donkey_Envato_API {
     public function authenticated_request( $action, $args = array() ) {
         if ( ! $this->can_make_authenticated_request() ) {
             if ( donkey()->oauth->refresh_access_token( $action, $args ) ) {
-				return $this->authenticated_request( $action, $args );
-			} else {
-				donkey()->flash->set( 'Unable to make request', 'donkey' );
-			}
+                return $this->authenticated_request( $action, $args );
+            } else {
+                donkey()->flash->set( 'Unable to make request', 'donkey' );
+            }
         } else {
             return $this->make_authenticated_request( $action, $args );
         }
@@ -51,11 +51,11 @@ class Donkey_Envato_API {
     }
 
     private function get_url( $action, $args ) {
-		if ( filter_var( $action, FILTER_VALIDATE_URL ) ) {
-			$base = $action;
-		}else {
-			$base = trailingslashit( $this->api_base . $action );
-		}
+        if ( filter_var( $action, FILTER_VALIDATE_URL ) ) {
+            $base = $action;
+        }else {
+            $base = trailingslashit( $this->api_base . $action );
+        }
 
         return esc_url( add_query_arg( $args, $base ) );
     }

@@ -55,7 +55,7 @@ class Donkey_Envato_oAuth {
         $response = $this->request( $url, $request_args );
 
         if ( empty( $response->access_token ) ) {
-			return false;
+            return donkey()->flash->set( __( 'Unable to retrieve access token.'. 'donkey' ) );
         }
 
         $user->save_access_token( $response->access_token, 3600 );

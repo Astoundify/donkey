@@ -2,13 +2,13 @@
 
 class Donkey_License {
 
-	public $id;
+    public $id;
     public $item_id;
     public $item_name;
-	public $item_url;
+    public $item_url;
     public $code;
     public $expiration;
-	public $support_amount;
+    public $support_amount;
 
     public function __construct( $id = false, $field = 'id' ) {
         if ( $id ) {
@@ -19,16 +19,16 @@ class Donkey_License {
     public function get( $value, $field = 'id' ) {
         global $wpdb;
 
-		if ( is_int( $value ) ) {
-			$value = absint( $value );
-		} else {
-			$value = esc_attr( $value );
-		}
+        if ( is_int( $value ) ) {
+            $value = absint( $value );
+        } else {
+            $value = esc_attr( $value );
+        }
 
         $license = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}donkey_licenses WHERE $field = '%s'", $value ) );
 
         if ( $license ) {
-			$this->id = $license->id;
+            $this->id = $license->id;
             $this->item_id = $license->item_id;
             $this->item_name = $license->item_name;
             $this->item_url = $license->item_url;
@@ -47,49 +47,49 @@ class Donkey_License {
 
         $user = donkey_get_user();
 
-		$defaults = array(
-			'user_id' => $user->ID
-		);
+        $defaults = array(
+            'user_id' => $user->ID
+        );
 
-		$data = wp_parse_args( $data, $defaults );
+        $data = wp_parse_args( $data, $defaults );
 
         $license = $wpdb->insert( $wpdb->prefix . 'donkey_licenses', $data );
 
         return $wpdb->insert_id;
     }
-	
+
     public function update( $data ) {
-		global $wpdb;
+        global $wpdb;
 
-		$license = false;
+        $license = false;
 
-		if ( isset( $data[ 'id' ] ) ) {
-			$license = $this->get( $data[ 'id' ] );
-		}
+        if ( isset( $data[ 'id' ] ) ) {
+            $license = $this->get( $data[ 'id' ] );
+        }
 
-		if ( ! $license ) {
-			return false;
-		}
+        if ( ! $license ) {
+            return false;
+        }
 
-		$data = wp_parse_args( $data, (array) $license );
-		$where = array( 'id' => $data[ 'id' ] );
+        $data = wp_parse_args( $data, (array) $license );
+        $where = array( 'id' => $data[ 'id' ] );
 
-		unset( $data[ 'id' ] );
+        unset( $data[ 'id' ] );
 
-		$license = $wpdb->update( $wpdb->prefix . 'donkey_licenses', $data, $where );
+        $license = $wpdb->update( $wpdb->prefix . 'donkey_licenses', $data, $where );
 
-		return $license;
+        return $license;
     }
 
-	public function delete() {
-		global $wpdb;
+    public function delete() {
+        global $wpdb;
 
-		return $wpdb->delete( $wpdb->prefix . 'donkey_licenses', array( 'id' => $this->get_id() ), array( '%d' ) );
-	}
+        return $wpdb->delete( $wpdb->prefix . 'donkey_licenses', array( 'id' => $this->get_id() ), array( '%d' ) );
+    }
 
-	public function get_id() {
-		return absint( $this->id );
-	}
+    public function get_id() {
+        return absint( $this->id );
+    }
 
     public function get_item_id() {
         return absint( $this->item_id );
@@ -108,45 +108,45 @@ class Donkey_License {
     }
 
     public function get_expiration( $format = false ) {
-		if ( 'timestamp'  == $format ) {
-			$expiration = strtotime( $this->expiration );
-		} elseif ( $format ) {
-			$expiration = date( $format, $this->expiration );
-		} else {
-			$expiration = $this->expiration;
-		}
+        if ( 'timestamp'  == $format ) {
+            $expiration = strtotime( $this->expiration );
+        } elseif ( $format ) {
+            $expiration = date( $format, $this->expiration );
+        } else {
+            $expiration = $this->expiration;
+        }
 
         return $expiration;
     }
 
     public function is_active() {
-		// this isnt totally true since we offered 6 months from the start
-		return strtotime( $this->get_expiration() ) > current_time( 'timestamp' );
+        // this isnt totally true since we offered 6 months from the start
+        return strtotime( $this->get_expiration() ) > current_time( 'timestamp' );
     }
 
 
-	public function get_renew_url() {
-		$base = donkey_get_page_url( 'licenses' );
-		$args = array(
-			'donkey-page' => 'renew-license',
-			'id' => $this->get_id()
-		);
+    public function get_renew_url() {
+        $base = donkey_get_page_url( 'licenses' );
+        $args = array(
+            'donkey-page' => 'renew-license',
+            'id' => $this->get_id()
+        );
 
-		$url = add_query_arg( $args, $base );
-		
-		return esc_url( $url );
-	}
+        $url = add_query_arg( $args, $base );
 
-	public function get_delete_url() {
-		$base = donkey_get_page_url( 'licenses' );
-		$args = array(
-			'donkey-action' => 'delete-license',
-			'license' => $this->get_id()
-		);
+        return esc_url( $url );
+    }
 
-		$url = add_query_arg( $args, $base );
+    public function get_delete_url() {
+        $base = donkey_get_page_url( 'licenses' );
+        $args = array(
+            'donkey-action' => 'delete-license',
+            'license' => $this->get_id()
+        );
 
-		return esc_url( wp_nonce_url( $url, 'delete-license' ) );
-	}
+        $url = add_query_arg( $args, $base );
+
+        return esc_url( wp_nonce_url( $url, 'delete-license' ) );
+    }
 
 }

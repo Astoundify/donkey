@@ -8,10 +8,10 @@ class Donkey_Renew_License {
     }
 
     public function dashboard_content() {
-		$id = isset( $_REQUEST[ 'id' ] ) ? absint( $_REQUEST[ 'id' ] ) : false;
-		$license = donkey_get_license( $id );
-		
-		return donkey()->template->get( 'dashboard-renew-license.php', array( 'license' => $license ) );
+        $id = isset( $_REQUEST[ 'id' ] ) ? absint( $_REQUEST[ 'id' ] ) : false;
+        $license = donkey_get_license( $id );
+
+        return donkey()->template->get( 'license-renew.php', array( 'license' => $license ) );
     }
 
     public function update_license() {
@@ -25,33 +25,33 @@ class Donkey_Renew_License {
             'code' => $code
         ) );
 
-		$error = false;
+        $error = false;
 
-		if ( isset( $response->error ) ) {
-			$error = donkey()->flash->set( $response->description );
-		}
+        if ( isset( $response->error ) ) {
+            $error = donkey()->flash->set( $response->description );
+        }
 
-		if ( ! $error ) {
-			$license = donkey_get_license( $code, 'code' );
+        if ( ! $error ) {
+            $license = donkey_get_license( $code, 'code' );
 
-			if ( ! $license ) {
-				return donkey()->flash->set( __( 'Unable to locate previous license code.', 'donkey' ) );
-			}
+            if ( ! $license ) {
+                return donkey()->flash->set( __( 'Unable to locate previous license code.', 'donkey' ) );
+            }
 
-			$data = array(
-				'id' => $license->get_id(),
-				'expiration' => $response->supported_until
-			);
+            $data = array(
+                'id' => $license->get_id(),
+                'expiration' => $response->supported_until
+            );
 
-			if ( $license->update( $data ) ) {
-				donkey()->flash->set( __( 'License renewed.', 'astoundify-rcp-envato' ) );
+            if ( $license->update( $data ) ) {
+                donkey()->flash->set( __( 'License renewed.', 'astoundify-rcp-envato' ) );
 
-				// ghetto redirect
-				unset( $_REQUEST[ 'donkey-page' ] );
-			} else {
-				donkey()->flash->set( __( 'Error renewing license. Have you renewed your support on ThemeForest.net?', 'donkey' ) );
-			}
-		}
+                // ghetto redirect
+                unset( $_REQUEST[ 'donkey-page' ] );
+            } else {
+                donkey()->flash->set( __( 'Error renewing license. Have you renewed your support on ThemeForest.net?', 'donkey' ) );
+            }
+        }
     }
 
 }

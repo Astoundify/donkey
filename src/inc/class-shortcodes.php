@@ -13,7 +13,7 @@ class Donkey_Shortcodes {
 
     public function includes() {
         $files = array(
-            'class-shortcode-dashboard.php'
+            'class-shortcode-licenses.php'
         );
 
         foreach ( $files as $file ) {
@@ -22,7 +22,7 @@ class Donkey_Shortcodes {
     }
 
     public function register_shortcodes() {
-        $this->dashboard = new Donkey_Shortcode_Dashboard();
+        $this->licenses = new Donkey_Shortcode_Licenses();
     }
 
 }

@@ -7,7 +7,7 @@ class Donkey_Disconnect_oAuth {
     }
 
     public function disconnect_oauth() {
-		return donkey_get_user()->clear_oauth();
-	}
+        return donkey_get_user()->clear_oauth();
+    }
 
 }

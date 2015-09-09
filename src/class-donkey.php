@@ -4,9 +4,6 @@ class Donkey {
 
     private static $instance;
 
-	// should be in its own calss
-	public $message;
-
     public static function instance() {
         if ( ! isset( self::$instance ) && ! ( self::$instance instanceof self ) ) {
             self::$instance = new self;
@@ -32,7 +29,7 @@ class Donkey {
             'class-helpers.php',
             'class-flash.php',
             'class-template.php',
-			'class-textdomain.php',
+            'class-textdomain.php',
             'class-api.php',
             'class-user.php',
             'class-oauth.php',
@@ -40,9 +37,9 @@ class Donkey {
             'class-shortcodes.php',
             'class-license.php',
             'class-settings.php',
-			'class-gravityforms.php',
-			'class-helpscout.php',
-			'class-admin.php',
+            'class-gravityforms.php',
+            'class-helpscout.php',
+            'class-admin.php',
             'functions.php',
         );
 
@@ -54,8 +51,8 @@ class Donkey {
     public function setup() {
         $this->helpers      = new Donkey_Helpers();
         $this->flash        = new Donkey_Flash();
-		$this->template     = new Donkey_Template();
-		$this->textdomain   = new Donkey_Textdomain();
+        $this->template     = new Donkey_Template();
+        $this->textdomain   = new Donkey_Textdomain();
         $this->api          = new Donkey_Envato_API();
         $this->oauth        = new Donkey_Envato_oAuth();
         $this->shortcodes   = new Donkey_Shortcodes();
@@ -63,7 +60,7 @@ class Donkey {
         $this->settings     = new Donkey_Settings();
         $this->gravityforms = new Donkey_GravityForms();
         $this->helpscout    = new Donkey_Helpscout();
-		$this->admin        = new Donkey_Admin();
+        $this->admin        = new Donkey_Admin();
     }
 
 }

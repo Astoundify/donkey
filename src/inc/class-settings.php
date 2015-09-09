@@ -50,13 +50,13 @@ class Donkey_Settings {
                 'section' => 'general',
                 'default' => '',
                 'type' => 'text'
-			),
+            ),
             'page_submit' => array(
                 'label' => __( 'Submit Page ID', 'donkey' ),
                 'section' => 'general',
                 'default' => '',
                 'type' => 'text'
-			),
+            ),
             'gravityform' => array(
                 'label' => __( 'Gravity Form ID', 'donkey' ),
                 'section' => 'general',
@@ -99,7 +99,7 @@ class Donkey_Settings {
                 <?php
                     settings_fields( 'donkey' );
                     do_settings_sections( 'donkey' );
-					submit_button();
+                    submit_button();
                 ?>
             </form>
         </div>
