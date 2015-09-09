@@ -78,7 +78,7 @@ class Donkey_Envato_oAuth {
         }
 
         $user = donkey_get_user();
-        $user->save_access_token( $response->access_token, 3600 );
+        $user->save_access_token( $response->access_token, $response->expires_in );
         $user->save_refresh_token( $response->refresh_token );
     }
 

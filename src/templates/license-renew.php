@@ -1,3 +1,4 @@
+<p><a href="<?php echo donkey_get_page_url( 'licenses' ); ?>"><?php _e( '&larr; Manage Licenses', 'donkey' ); ?></a></p>
 <p>Still need support? <a href="<?php echo $license->get_item_url(); ?>?ref=Astoundify">Visit the item page</a> to renew your support. Once completed, enter your license key below.</p>
 
 <form action="" method="POST">
