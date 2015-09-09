@@ -16,6 +16,8 @@ class Donkey_Shortcode_Licenses {
 
         if ( ! is_user_logged_in() ) {
             return donkey()->template->find( 'login.php' );
+        } elseif ( ! donkey()->api->can_make_authenticated_request() ) {
+            return donkey()->template->find( 'oauth.php' );
         }
 
         if ( donkey()->flash->has() ) {
