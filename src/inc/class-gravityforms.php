@@ -15,6 +15,15 @@ class Donkey_GravityForms {
         add_filter( 'gform_pre_validation_' . $form, array( $this, 'populate_licenses' ) );
         add_filter( 'gform_pre_submission_filter_' . $form, array( $this, 'populate_licenses' ) );
         add_filter( 'gform_admin_pre_render_' . $form, array( $this, 'populate_licenses' ) );
+
+        add_filter( 'gform_notification_' . $form, array( $this, 'notification' ) );
+    }
+
+    public function notification( $notification ) {
+        $bad = array( 'WordPress Directory Theme - ', 'Marketplace WordPress Theme - ', 'WordPress Job Board Theme - ' );
+        $notification[ 'subject' ] = str_replace( $bad, array( '', '', '' ), $notification[ 'subject'] );
+
+        return $notification;
     }
 
     public function validate_licenses( $form ) {

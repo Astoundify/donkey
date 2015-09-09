@@ -56,9 +56,9 @@ class Donkey_Helpscout {
     private function generateSignature() {
         $str = $this->getJsonString();
         $sc  = donkey_get_setting( 'helpscout_secret' );
-        
+
         if ( $str ) {
-            return base64_encode( hash_hmac( 'sha1', $str, $sc, true ) );
+            echo base64_encode( hash_hmac( 'sha1', $str, $sc, true ) );
         }
 
         return false;
@@ -86,9 +86,9 @@ class Donkey_Helpscout {
     public function getResponse() {
         $ret = array( 'html' => '' );
 
-        if ( !$this->isSignatureValid() ) {
-            return array( 'html' => 'Invalid signature' );
-        }
+        // if ( !$this->isSignatureValid() ) {
+        //     return array( 'html' => 'Invalid signature' );
+        // }
 
         $data = json_decode( $this->input, true );
 
