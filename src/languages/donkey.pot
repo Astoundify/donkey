@@ -12,43 +12,43 @@ msgstr ""
 
 "Plural-Forms: nplurals=2; plural=(n != 1);\n\n"
 
-#: src/inc/class-action-add-license.php:18
+#: src/inc/actions/class-action-add-license.php:18
 msgid "Please add a license code."
 msgstr ""
 
-#: src/inc/class-action-add-license.php:38
+#: src/inc/actions/class-action-add-license.php:44
 msgid "License already exists."
 msgstr ""
 
-#: src/inc/class-action-add-license.php:51
+#: src/inc/actions/class-action-add-license.php:57
 msgid "License added"
 msgstr ""
 
-#: src/inc/class-action-add-license.php:56
+#: src/inc/actions/class-action-add-license.php:62
 msgid "Unable to add license. Is it valid?"
 msgstr ""
 
-#: src/inc/class-action-delete-license.php:13, src/inc/class-action-delete-license.php:19
+#: src/inc/actions/class-action-delete-license.php:13, src/inc/actions/class-action-delete-license.php:19
 msgid "Unable to locate license"
 msgstr ""
 
-#: src/inc/class-action-delete-license.php:24
+#: src/inc/actions/class-action-delete-license.php:24
 msgid "License deleted."
 msgstr ""
 
-#: src/inc/class-action-renew-license.php:21
+#: src/inc/actions/class-action-renew-license.php:21
 msgid "Please enter a license"
 msgstr ""
 
-#: src/inc/class-action-renew-license.php:38
+#: src/inc/actions/class-action-renew-license.php:38
 msgid "Unable to locate previous license code."
 msgstr ""
 
-#: src/inc/class-action-renew-license.php:52
+#: src/inc/actions/class-action-renew-license.php:52
 msgid "Error renewing license. Have you renewed your support on ThemeForest.net?"
 msgstr ""
 
-#: src/inc/class-gravityforms.php:56
+#: src/inc/class-gravityforms.php:57
 msgid "Please add a valid Envato license code."
 msgstr ""
 
@@ -61,18 +61,30 @@ msgid "Client Secret"
 msgstr ""
 
 #: src/inc/class-settings.php:31
-msgid "Licenses Page ID"
+msgid "Helpscout Secret Key"
 msgstr ""
 
 #: src/inc/class-settings.php:37
-msgid "Submit Page ID"
+msgid "Helpscout Email"
 msgstr ""
 
 #: src/inc/class-settings.php:43
+msgid "Product Whitelist"
+msgstr ""
+
+#: src/inc/class-settings.php:49
+msgid "Licenses Page ID"
+msgstr ""
+
+#: src/inc/class-settings.php:55
+msgid "Submit Page ID"
+msgstr ""
+
+#: src/inc/class-settings.php:61
 msgid "Gravity Form ID"
 msgstr ""
 
-#: src/inc/class-settings.php:78
+#: src/inc/class-settings.php:96
 msgid "Donkey"
 msgstr ""
 
@@ -96,7 +108,7 @@ msgstr ""
 msgid "Item URL"
 msgstr ""
 
-#: src/templates/admin-edit-user-licenses.php:12, src/templates/dashboard-add-license.php:3, src/templates/dashboard-renew-license.php:5
+#: src/templates/admin-edit-user-licenses.php:12, src/templates/license-add.php:3, src/templates/license-renew.php:5
 msgid "License Code"
 msgstr ""
 
@@ -104,50 +116,54 @@ msgstr ""
 msgid "Expiration"
 msgstr ""
 
-#: src/templates/dashboard-add-license.php:7, src/templates/dashboard.php:15
+#: src/templates/license-add.php:7, src/templates/licenses.php:15
 msgid "Add License"
 msgstr ""
 
-#: src/templates/dashboard-oauth.php:1
-msgid "Hey there! Before you can submit a ticket you must first connect your Envato account and add a valid license code."
-msgstr ""
-
-#: src/templates/dashboard-renew-license.php:9
+#: src/templates/license-renew.php:9
 msgid "Renew Support"
 msgstr ""
 
-#: src/templates/dashboard.php:8
+#: src/templates/licenses.php:8
 msgid "Welcome <img src="%1$s" alt="%2$s" style="width: 25px; height: 25px;vertical-align: middle;margin: -3px 5px 0;padding: 0;box-shadow: none;" />%2$s <a href="%3$s">(disconnect)</a>. Manage your licenses below."
 msgstr ""
 
-#: src/templates/dashboard.php:16
+#: src/templates/licenses.php:16
 msgid "Purchase Licenses"
 msgstr ""
 
-#: src/templates/dashboard.php:17
+#: src/templates/licenses.php:17
 msgid "Submit Ticket"
 msgstr ""
 
-#: src/templates/dashboard.php:25
+#: src/templates/licenses.php:25
 msgid "Item"
 msgstr ""
 
-#: src/templates/dashboard.php:26
+#: src/templates/licenses.php:26
 msgid "Support Status"
 msgstr ""
 
-#: src/templates/dashboard.php:38
+#: src/templates/licenses.php:38
 msgid "Expires %s"
 msgstr ""
 
-#: src/templates/dashboard.php:40
+#: src/templates/licenses.php:40
 msgid "&#10004; Active for %s"
 msgstr ""
 
-#: src/templates/dashboard.php:42
+#: src/templates/licenses.php:42
 msgid "Expired"
 msgstr ""
 
-#: src/templates/dashboard.php:45
+#: src/templates/licenses.php:45
 msgid "Extend Support"
+msgstr ""
+
+#: src/templates/login.php:2
+msgid "<a href="%s" class="button">Log in to Continue</a> <a href="%s" class="button">Register a New Account</a>"
+msgstr ""
+
+#: src/templates/oauth.php:1
+msgid "Hey there! Before you can submit a ticket you must first connect your Envato account and add a valid license code."
 msgstr ""
