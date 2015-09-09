@@ -144,6 +144,8 @@ class Donkey_Helpscout {
 
         $html[] = '</ul>';
 
+        return implode( '', $html );
+
         return $html;
     }
 
