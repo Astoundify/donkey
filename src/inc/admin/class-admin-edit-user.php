@@ -2,53 +2,57 @@
 
 class Donkey_Admin_Edit_User {
 
-	public function __construct() {
-		add_action( 'show_user_profile', array( $this, 'display_licenses' ) );
-		add_action( 'edit_user_profile', array( $this, 'display_licenses' ) );
+    public function __construct() {
+        if ( ! current_user_can( 'edit_users' ) ) {
+            return;
+        }
 
-		add_action( 'personal_options_update', array( $this, 'update_profile' ) );
-		add_action( 'edit_user_profile_update', array( $this, 'update_profile' ) );
-	}
+        add_action( 'show_user_profile', array( $this, 'display_licenses' ) );
+        add_action( 'edit_user_profile', array( $this, 'display_licenses' ) );
 
-	public function display_licenses( $user ) {
-		$user = donkey_get_user( $user );
-		$licenses = $user->get_licenses();
+        add_action( 'personal_options_update', array( $this, 'update_profile' ) );
+        add_action( 'edit_user_profile_update', array( $this, 'update_profile' ) );
+    }
 
-		donkey()->template->get( 'admin-edit-user-licenses.php', array(
-			'user' => $user,
-			'licenses' => $licenses
-		) );
-	}
+    public function display_licenses( $user ) {
+        $user = donkey_get_user( $user );
+        $licenses = $user->get_licenses();
 
-	public function update_profile( $user_id ) {
-		$donkey = isset( $_POST[ 'donkey' ] ) ? $_POST[ 'donkey' ] : false;
+        donkey()->template->get( 'admin-edit-user-licenses.php', array(
+            'user' => $user,
+            'licenses' => $licenses
+        ) );
+    }
 
-		if ( ! $donkey ) {
-			return;
-		}
+    public function update_profile( $user_id ) {
+        $donkey = isset( $_POST[ 'donkey' ] ) ? $_POST[ 'donkey' ] : false;
 
-		$licenses = isset( $donkey[ 'licenses' ] ) ? $donkey[ 'licenses' ] : false;
+        if ( ! $donkey ) {
+            return;
+        }
 
-		if ( ! $licenses ) {
-			return;
-		}
+        $licenses = isset( $donkey[ 'licenses' ] ) ? $donkey[ 'licenses' ] : false;
 
-		foreach ( $licenses as $license ) {
-			$id = isset( $license[ 'id' ] ) ? $license[ 'id' ] : null;
-			$l  = donkey_get_license( $id );
+        if ( ! $licenses ) {
+            return;
+        }
 
-			if ( '' == $license[ 'code' ] && isset( $license[ 'id' ] ) ) {
-				$l->delete();
-			} else {
-				$license[ 'user_id' ] = $user_id;
+        foreach ( $licenses as $license ) {
+            $id = isset( $license[ 'id' ] ) ? $license[ 'id' ] : null;
+            $l  = donkey_get_license( $id );
 
-				if ( ! isset( $license[ 'id' ] ) && '' != $license[ 'code' ] ) {
-					$l->insert( $license );
-				} else {
-					$l->update( $license );
-				}
-			}
-		}
-	}
+            if ( '' == $license[ 'code' ] && isset( $license[ 'id' ] ) ) {
+                $l->delete();
+            } else {
+                $license[ 'user_id' ] = $user_id;
+
+                if ( ! isset( $license[ 'id' ] ) && '' != $license[ 'code' ] ) {
+                    $l->insert( $license );
+                } else {
+                    $l->update( $license );
+                }
+            }
+        }
+    }
 
 }

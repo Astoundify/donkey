@@ -47,6 +47,7 @@ class Donkey_GravityForms {
             $choices  = array();
 
             if ( ! empty( $licenses ) ) {
+                $choices[] = array( 'value' => 'no-licenses', 'text' => __( 'Choose a license', 'donkey' ) );
                 foreach ( $licenses as $license ) {
                     $license = donkey_get_license( $license );
                     $value = $license->is_active() ? 'valid' : $license->get_id();
