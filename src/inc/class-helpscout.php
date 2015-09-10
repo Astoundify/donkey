@@ -86,9 +86,9 @@ class Donkey_Helpscout {
     public function getResponse() {
         $ret = array( 'html' => '' );
 
-        // if ( !$this->isSignatureValid() ) {
-        //     return array( 'html' => 'Invalid signature' );
-        // }
+        if ( !$this->isSignatureValid() ) {
+            return array( 'html' => 'Invalid signature' );
+        }
 
         $data = json_decode( $this->input, true );
 
@@ -108,16 +108,6 @@ class Donkey_Helpscout {
         global $wpdb;
 
         $hs_email = donkey_get_setting( 'helpscout_email' );
-
-        if ( isset( $data['customer']['emails'] ) && is_array( $data['customer']['emails'] ) ) {
-            if(($key = array_search( $hs_email, $messages)) !== false) {
-                unset($data['customer']['emails'][$key]);
-            }
-        } else {
-            if ( $data['customer']['email'] == $hs_email ) {
-                return 'Cannot query customer licenses.  E-mail from ' . $hs_email;
-            }
-        }
 
         $html = array();
 
