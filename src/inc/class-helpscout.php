@@ -119,11 +119,14 @@ class Donkey_Helpscout {
             }
         }
 
+        $html = array();
+
         $email = $data[ 'customer' ][ 'email' ];
         $user = donkey_get_user( get_user_by( 'email', $email ) );
         $licenses = $user->get_licenses();
 
-        $html = array();
+        $html[] = $email;
+        $html[] = implode( ', ', $licenses );
 
         $html[] = '<h4 class="toggleBtn"><i class="icon-gear"></i> Licenses</h4>';
         $html[] = '<ul>';
