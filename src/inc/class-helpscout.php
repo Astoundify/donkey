@@ -58,7 +58,7 @@ class Donkey_Helpscout {
         $user = donkey_get_user( $user->ID );
         $licenses = $user->get_licenses();
 
-        $html[] = '<p><strong>' . $user->get_envato_username() . '</strong></p>';
+        $html[] = '<p>Envato Username: <strong>' . $user->get_envato_username() . '</strong></p>';
         $html[] = '<p>' . $user->get_envato_display_name() . ', ' . $user->get_envato_country() . '</p>';
 
         if ( ! empty( $licenses ) ) {
