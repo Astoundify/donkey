@@ -58,10 +58,12 @@ class Donkey_Helpscout {
         $user = donkey_get_user( $user->ID );
         $licenses = $user->get_licenses();
 
-        $html[] = '<table>';
-        $html[] = '<tr><td colspan="3">' . $user->get_envato_username() . '</td></tr>';
+        $html[] = '<p><strong>' . $user->get_envato_username() . '</strong></p>';
 
         if ( ! empty( $licenses ) ) {
+
+            $html[] = '<table>';
+
             foreach ( $licenses as $license ) {
                 $license = donkey_get_license( $license );
 
@@ -70,14 +72,17 @@ class Donkey_Helpscout {
                 $name = array_map( 'trim', explode( '-', $name ) );
 
                 $html[] = '<tr>';
-                $html[] = '<td>' . $name[1] . '</td>';
-                $html[] = '<td>' . $license->get_code() . '</td>';
-                $html[] = '<td>' . ( $license->is_active() ? 'Active' : '<span style="color: red;">Expired</span>' ) . '</td>';
+                $html[] = '<td style="border: 1px solid #ccc;">' . $name[1] . '</td>';
+                $html[] = '<td style="border: 1px solid #ccc;">' . $license->get_code() . '</td>';
+                $html[] = '<td style="border: 1px solid #ccc;">' . ( $license->is_active() ? 'Active' : '<span style="color: red;">Expired</span>' ) . '</td>';
                 $html[] = '</tr>';
             }
-        }
+            
+            $html[] = '<table>';
 
-        $html[] = '<table>';
+        } else {
+            $html[] = '<p>' . __( 'No licenses', 'donkey' ) . '</p>';
+        }
 
         return implode( '', $html );
 
