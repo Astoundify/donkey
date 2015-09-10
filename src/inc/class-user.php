@@ -56,7 +56,7 @@ class Donkey_User {
     }
 
     public function get_envato_display_name() {
-        return $this->user->envato_firstname . $this->user->envato_surname;
+        return $this->user->envato_firstname . ' ' . $this->user->envato_surname;
     }
 
     public function get_envato_country() {
