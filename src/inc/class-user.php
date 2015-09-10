@@ -55,6 +55,14 @@ class Donkey_User {
         return $this->user->envato_image;
     }
 
+    public function get_envato_display_name() {
+        return $this->user->envato_firstname . $this->user->envato_surname;
+    }
+
+    public function get_envato_country() {
+        return $this->user->envato_country;
+    }
+
     public function get_access_token() {
         return get_transient( 'donkey_user_' . $this->ID . '_access_token' );
     }
