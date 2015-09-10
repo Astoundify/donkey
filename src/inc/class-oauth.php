@@ -55,10 +55,14 @@ class Donkey_Envato_oAuth {
         $response = $this->request( $url, $request_args );
 
         if ( empty( $response->access_token ) ) {
-            return donkey()->flash->set( __( 'Unable to retrieve access token.'. 'donkey' ) );
+            donkey()->flash->set( __( 'Unable to retrieve access token. Please connect to Envato again.', 'donkey' ) );
+
+            return false;
         }
 
         $user->save_access_token( $response->access_token, 3600 );
+
+        return true;
     }
 
     public function generate_access_token( $code ) {

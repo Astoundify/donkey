@@ -14,14 +14,14 @@ class Donkey_Shortcode_Licenses {
 
         ob_start();
 
+        if ( donkey()->flash->has() ) {
+            donkey()->template->get( 'notice.php', array( 'message' => donkey()->flash->get() ) );
+        }
+
         if ( ! is_user_logged_in() ) {
             return donkey()->template->find( 'login.php' );
         } elseif ( ! donkey()->api->can_make_authenticated_request() ) {
             return donkey()->template->find( 'oauth.php' );
-        }
-
-        if ( donkey()->flash->has() ) {
-            donkey()->template->get( 'notice.php', array( 'message' => donkey()->flash->get() ) );
         }
 
         if ( ! empty( $_REQUEST[ 'donkey-page' ] ) ) {

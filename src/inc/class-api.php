@@ -4,6 +4,14 @@ class Donkey_Envato_API {
 
     public function __construct() {
         $this->api_base = 'https://api.envato.com/v2/';
+
+        add_action( 'template_redirect', array( $this, 'reconnect_to_api' ) );
+    }
+
+    public function reconnect_to_api() {
+        if ( donkey_get_user()->get_refresh_token() && ! $this->can_make_authenticated_request() ) {
+            donkey()->oauth->refresh_access_token();
+        }
     }
 
     public function can_make_authenticated_request() {
@@ -14,7 +22,7 @@ class Donkey_Envato_API {
 
     public function authenticated_request( $action, $args = array() ) {
         if ( ! $this->can_make_authenticated_request() ) {
-            if ( donkey()->oauth->refresh_access_token( $action, $args ) ) {
+            if ( donkey()->oauth->refresh_access_token() ) {
                 return $this->authenticated_request( $action, $args );
             } else {
                 donkey()->flash->set( 'Unable to make request', 'donkey' );
