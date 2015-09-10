@@ -58,12 +58,10 @@ class Donkey_Helpscout {
         $user = donkey_get_user( $user->ID );
         $licenses = $user->get_licenses();
 
-        $html[] = '<h4 class="toggleBtn"><i class="icon-gear"></i> Licenses</h4>';
-        $html[] = '<ul>';
+        $html[] = '<table>';
+        $html[] = '<tr><td colspan="3">' . $user->get_envato_username() . '</td></tr>';
 
-        if ( empty( $licenses ) ) {
-            $html[] = '<li>No valid licenses</li>';
-        } else {
+        if ( ! empty( $licenses ) ) {
             foreach ( $licenses as $license ) {
                 $license = donkey_get_license( $license );
 
@@ -71,11 +69,15 @@ class Donkey_Helpscout {
                 $name = $license->get_item_name();
                 $name = array_map( 'trim', explode( '-', $name ) );
 
-                $html[] = '<li><strong>' . $name[1] . '</strong>: ' . ( $license->is_active() ? 'Active' : '<span style="color: red;">Expired</span>' ) . '</li>';
+                $html[] = '<tr>';
+                $html[] = '<td>' . $name[1] . '</td>';
+                $html[] = '<td>' . $license->get_code() . '</td>';
+                $html[] = '<td>' . ( $license->is_active() ? 'Active' : '<span style="color: red;">Expired</span>' ) . '</td>';
+                $html[] = '</tr>';
             }
         }
 
-        $html[] = '</ul>';
+        $html[] = '<table>';
 
         return implode( '', $html );
 
