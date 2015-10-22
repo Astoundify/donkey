@@ -72,24 +72,31 @@ class Donkey_User {
     }
 
     public function save_access_token( $token, $expires ) {
-        set_transient( 'donkey_user_' . $this->ID . '_access_token', $token, $expires );
+        return set_transient( 'donkey_user_' . $this->ID . '_access_token', $token, $expires );
     }
 
     public function save_refresh_token( $token ) {
-        add_user_meta( $this->ID, 'refresh_token', $token, true );
+        return add_user_meta( $this->ID, 'refresh_token', $token, true );
     }
 
     public function clear_access_token() {
-        delete_transient( 'donkey_user_' . $this->ID . '_access_token' );
+        return delete_transient( 'donkey_user_' . $this->ID . '_access_token' );
     }
 
     public function clear_refresh_token() {
-        delete_user_meta( $this->ID, 'refresh_token' );
+        return delete_user_meta( $this->ID, 'refresh_token' );
     }
 
     public function clear_oauth() {
         $this->clear_access_token();
         $this->clear_refresh_token();
+
+        delete_user_meta( $this->ID, 'envato_image' );
+        delete_user_meta( $this->ID, 'envato_username' );
+        delete_user_meta( $this->ID, 'envato_firstname' );
+        delete_user_meta( $this->ID, 'envato_surname' );
+        delete_user_meta( $this->ID, 'envato_country' );
+        delete_user_meta( $this->ID, 'envato_account', true );
     }
 
     public function get_licenses() {
