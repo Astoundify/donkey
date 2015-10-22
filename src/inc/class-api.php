@@ -17,7 +17,7 @@ class Donkey_Envato_API {
     public function can_make_authenticated_request() {
         $user = donkey_get_user();
 
-        return $user->get_access_token();
+        return (boolean) $user->get_access_token();
     }
 
     public function authenticated_request( $action, $args = array() ) {
