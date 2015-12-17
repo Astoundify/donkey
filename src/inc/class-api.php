@@ -20,19 +20,19 @@ class Donkey_Envato_API {
         return (boolean) $user->get_access_token();
     }
 
-    public function authenticated_request( $action, $args = array() ) {
+    public function authenticated_request( $action, $args = array(), $return = 'body' ) {
         if ( ! $this->can_make_authenticated_request() ) {
             if ( donkey()->oauth->refresh_access_token() ) {
-                return $this->authenticated_request( $action, $args );
+                return $this->authenticated_request( $action, $args, $return );
             } else {
                 donkey()->flash->set( 'Unable to make request', 'donkey' );
             }
         } else {
-            return $this->make_authenticated_request( $action, $args );
+            return $this->make_authenticated_request( $action, $args, $return );
         }
     }
 
-    public function make_authenticated_request( $action, $args = array() ) {
+    public function make_authenticated_request( $action, $args = array(), $return = 'body' ) {
         $user = donkey_get_user();
 
         $default_request_args = array(
@@ -49,6 +49,11 @@ class Donkey_Envato_API {
         $request_args = donkey()->helpers->parse_args_r( $args, $default_request_args );
 
         $request = wp_remote_post( $this->get_url( $action, $args ), $request_args );
+
+        if ( 'body' != $return ) {
+            return $request;
+        }
+
         $response = json_decode( wp_remote_retrieve_body( $request ) );
 
         if ( isset( $response->error ) && 'forbidden' == $response->error ) {

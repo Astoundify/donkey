@@ -27,6 +27,16 @@ class Donkey_GravityForms {
     }
 
     public function validate_licenses( $form ) {
+        // try and get a simple item
+        $attempt = donkey()->api->authenticated_request( 'market/catalog/item', array( 'id' => '6570786' ), 'full' );
+
+        // if the API is down but they have a refresh token let them through
+        if ( ( ! $attempt || 200 != wp_remote_retrieve_response_code( $attempt ) ) && donkey_get_user()->get_refresh_token() ) {
+            $form[ 'description' ] = false;
+
+            return $form;
+        }
+
         if ( ! is_user_logged_in() ) {
             $form[ 'fields' ] = array();
             $form[ 'description' ] = donkey()->template->find( 'login.php' );
