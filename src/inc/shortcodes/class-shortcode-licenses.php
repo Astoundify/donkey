@@ -34,6 +34,8 @@ class Donkey_Shortcode_Licenses {
             }
         }
 
+        print_r( $user->get_licenses() );
+
         donkey()->template->get( 'licenses.php', array(
             'user' => $user,
             'licenses' => $user->get_licenses()

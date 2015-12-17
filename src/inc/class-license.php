@@ -10,9 +10,9 @@ class Donkey_License {
     public $expiration;
     public $support_amount;
 
-    public function __construct( $id = false, $field = 'id' ) {
-        if ( $id ) {
-            return $this->get( $id, $field );
+    public function __construct( $search = false, $field = 'id' ) {
+        if ( $search ) {
+            return $this->get( $search, $field );
         }
     }
 
