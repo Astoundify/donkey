@@ -38,6 +38,7 @@ class Donkey {
             'class-license.php',
             'class-settings.php',
             'class-gravityforms.php',
+            'class-edd-sl.php',
             'class-helpscout.php',
             'class-admin.php',
             'functions.php',
@@ -59,6 +60,7 @@ class Donkey {
         $this->actions      = new Donkey_Actions();
         $this->settings     = new Donkey_Settings();
         $this->gravityforms = new Donkey_GravityForms();
+        $this->eddsl        = new Donkey_EDD_SL();
         $this->helpscout    = new Donkey_Helpscout();
         $this->admin        = new Donkey_Admin();
     }

@@ -22,9 +22,9 @@
     <table>
         <thead>
             <tr>
-                <td width="60%"><?php _e( 'Item', 'donkey' ); ?></td>
-                <td><?php _e( 'Support Status', 'donkey' ); ?></td>
-                <td width="10%"></td>
+                <th width="60%"><?php _e( 'Item', 'donkey' ); ?></th>
+                <th><?php _e( 'Support Status', 'donkey' ); ?></th>
+                <th width="10%"></td>
             </tr>
         </thead>
         <tbody>

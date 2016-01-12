@@ -62,22 +62,26 @@ class Donkey_GravityForms {
                 continue;
             }
 
-            $licenses = donkey_get_user()->get_licenses();
+            $licenses = apply_filters( 'donkey_gravityforms_populate_licenses', donkey_get_user()->get_licenses() );
+
             $choices  = array();
 
             if ( ! empty( $licenses ) ) {
                 $choices[] = array( 'value' => 'no-licenses', 'text' => __( 'Choose a license', 'donkey' ) );
                 foreach ( $licenses as $license ) {
                     $license = donkey_get_license( $license );
-                    $value = $license->is_active() ? 'valid' : $license->get_id();
 
-                    $choices[] = array( 'value' => $value, 'text' => $license->get_item_name() );
+                    if ( ! $license->is_active() ) {
+                        continue;
+                    }
+
+                    $choices[] = array( 'value' => 'valid', 'text' => $license->get_item_name() );
                 }
             } else {
                 $choices[] = array( 'value' => 'no-licenses', 'text' => __( 'Please add a valid Envato license code.', 'donkey' ) );
             }
 
-            $field->choices = $choices;
+            $field->choices = apply_filters( 'donkey_gravityforms_populate_license_choices', $choices );
         }
 
         return $form;
