@@ -38,6 +38,8 @@ class Donkey_Shortcode_Licenses {
             'user' => $user,
             'licenses' => $user->get_licenses()
         ) );
+
+	return ob_get_clean();
     }
 
 }
