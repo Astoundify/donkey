@@ -20,8 +20,8 @@ class Donkey_GravityForms {
     }
 
     public function notification( $email ) {
-        $bad = array( 'WordPress Directory Theme - ', 'Marketplace WordPress Theme - ', 'WordPress Job Board Theme - ' );
-        $email[ 'subject' ] = str_replace( $bad, '', $email[ 'subject'] );
+        $bad = array( 'WordPress Directory Theme', 'Marketplace WordPress Theme', 'WordPress Job Board Theme', 'WP Job Manager', '-', '--', '—'  );
+        $email[ 'subject' ] = trim( str_replace( $bad, '', $email[ 'subject'] ) );
 
         return $email;
     }
@@ -75,7 +75,7 @@ class Donkey_GravityForms {
                         continue;
                     }
 
-                    $choices[] = array( 'value' => 'valid', 'text' => $license->get_item_name() );
+                    $choices[] = array( 'value' => 'valid-' . sanitize_title( $license->get_item_name() ), 'text' => $license->get_item_name() );
                 }
             } else {
                 $choices[] = array( 'value' => 'no-licenses', 'text' => __( 'Please add a valid Envato license code.', 'donkey' ) );
