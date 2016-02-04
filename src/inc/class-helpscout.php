@@ -70,10 +70,11 @@ class Donkey_Helpscout {
 
                 // clean name - astoundify format
                 $name = $license->get_item_name();
-                $name = array_map( 'trim', explode( '-', $name ) );
+                $name = str_replace( array( 'WordPress Directory Theme', 'Digital Marketplace WordPress Theme', 'WordPress Job Board Theme', '-' ), '', $name );
+				$name = trim( $name );
 
                 $html[] = '<tr>';
-                $html[] = '<td style="border: 1px solid #ccc;">' . $name[1] . '</td>';
+                $html[] = '<td style="border: 1px solid #ccc;">' . $name . '</td>';
                 $html[] = '<td style="border: 1px solid #ccc;">' . $license->get_code() . '</td>';
                 $html[] = '<td style="border: 1px solid #ccc;">' . ( $license->is_active() ? 'Active' : '<span style="color: red;">Expired</span>' ) . '</td>';
                 $html[] = '</tr>';
