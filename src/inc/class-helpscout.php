@@ -66,8 +66,6 @@ class Donkey_Helpscout {
 
         if ( ! empty( $licenses ) ) {
 
-            $html[] = '<table>';
-
             foreach ( $licenses as $license ) {
                 $license = donkey_get_license( $license );
 
@@ -76,6 +74,7 @@ class Donkey_Helpscout {
                 $name = str_replace( array( 'WordPress Directory Theme', 'Digital Marketplace WordPress Theme', 'WordPress Job Board Theme', '-' ), '', $name );
 				$name = trim( $name );
 
+				$html[] = '<table>';
                 $html[] = '<tr>';
                 $html[] = '<td style="border: 1px solid #ccc;"><strong>' . $name . '</strong></td>';
                 $html[] = '<td style="border: 1px solid #ccc;">' . ( $license->is_active() ? 'Active' : '<span style="color: red;">Expired</span>' ) . '</td>';
@@ -83,9 +82,11 @@ class Donkey_Helpscout {
                 $html[] = '<tr>';
                 $html[] = '<td colspan="2" style="border: 1px solid #ccc;">' . $license->get_code() . '</td>';
                 $html[] = '</tr>';
+                $html[] = '<tr>';
+                $html[] = '<td colspan="2" style="border: 1px solid #ccc;">Expires: ' . $license->get_expiration( 'Y-m-d' ) . '</td>';
+                $html[] = '</tr>';
+				$html[] = '<table>';
             }
-            
-            $html[] = '<table>';
 
         } else {
             $html[] = '<p>' . __( 'No licenses', 'donkey' ) . '</p>';
