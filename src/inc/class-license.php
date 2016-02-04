@@ -111,7 +111,7 @@ class Donkey_License {
         if ( 'timestamp'  == $format ) {
             $expiration = strtotime( $this->expiration );
         } elseif ( $format ) {
-            $expiration = date( $format, $this->expiration );
+            $expiration = date( $format, strtotime( $this->expiration ) );
         } else {
             $expiration = $this->expiration;
         }
