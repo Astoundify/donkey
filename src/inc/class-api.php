@@ -24,8 +24,6 @@ class Donkey_Envato_API {
         if ( ! $this->can_make_authenticated_request() ) {
             if ( donkey()->oauth->refresh_access_token() ) {
                 return $this->authenticated_request( $action, $args, $return );
-            } else {
-                donkey()->flash->set( 'Unable to make request', 'donkey' );
             }
         } else {
             return $this->make_authenticated_request( $action, $args, $return );
@@ -49,16 +47,29 @@ class Donkey_Envato_API {
         $request_args = donkey()->helpers->parse_args_r( $args, $default_request_args );
 
         $request = wp_remote_post( $this->get_url( $action, $args ), $request_args );
+		$response_code = wp_remote_retrieve_response_code( $request );
 
+		// straight up WP error; the wp_remote_post fails.
+		if ( is_wp_error( $request ) ) {
+			$response = new stdClass;
+			$response->error = $request->get_error_message() . '. <strong>' . __( 'Please try again shortly.', 'donkey' ) . '</strong>';
+
+			$response->code = 500;
+
+			return $response;
+		}
+
+		// if we need the entire request, including headers
         if ( 'body' != $return ) {
             return $request;
         }
 
         $response = json_decode( wp_remote_retrieve_body( $request ) );
 
-        if ( isset( $response->error ) && 'forbidden' == $response->error ) {
-            donkey()->oauth->refresh_access_token( $action, $args );
-        }
+		if ( isset( $response->error ) ) {
+			$response->code = $response_code;
+			$response->error = $response->description; // a more user friendly message
+		}
 
         return $response;
     }

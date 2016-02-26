@@ -9,8 +9,6 @@ class Donkey_GravityForms {
     public function filter_fields() {
         $form = donkey_get_setting( 'gravityform' );
 
-        add_filter( 'gform_pre_render_' . $form, array( $this, 'validate_licenses' ) );
-
         add_filter( 'gform_pre_render_' . $form, array( $this, 'populate_licenses' ) );
         add_filter( 'gform_pre_validation_' . $form, array( $this, 'populate_licenses' ) );
         add_filter( 'gform_pre_submission_filter_' . $form, array( $this, 'populate_licenses' ) );
@@ -24,36 +22,6 @@ class Donkey_GravityForms {
         $email[ 'subject' ] = trim( str_replace( $bad, '', $email[ 'subject'] ) );
 
         return $email;
-    }
-
-    public function validate_licenses( $form ) {
-        // try and get a simple item
-        $attempt = donkey()->api->authenticated_request( 'market/catalog/item', array( 'id' => '6570786' ), 'full' );
-
-        // if the API is down but they have a refresh token let them through
-        if ( ( ! $attempt || 200 != wp_remote_retrieve_response_code( $attempt ) ) && donkey_get_user()->get_refresh_token() ) {
-            $form[ 'description' ] = false;
-
-            return $form;
-        }
-
-        if ( ! is_user_logged_in() ) {
-            $form[ 'fields' ] = array();
-            $form[ 'description' ] = donkey()->template->find( 'login.php' );
-
-            return $form;
-        } else {
-            if ( donkey()->api->can_make_authenticated_request() ) {
-                donkey_get_user()->validate_licenses();
-
-                $form[ 'description' ] = false;
-            } else {
-                $form[ 'description' ] = donkey()->template->find( 'oauth.php' );
-                $form[ 'fields' ] = array();
-            }
-        }
-
-        return $form;
     }
 
     function populate_licenses( $form ) {

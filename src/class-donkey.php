@@ -36,6 +36,7 @@ class Donkey {
             'class-actions.php',
             'class-shortcodes.php',
             'class-license.php',
+            'class-theme-licenses.php',
             'class-settings.php',
             'class-gravityforms.php',
             'class-edd-sl.php',
@@ -63,6 +64,7 @@ class Donkey {
         $this->eddsl        = new Donkey_EDD_SL();
         $this->helpscout    = new Donkey_Helpscout();
         $this->admin        = new Donkey_Admin();
+		$this->theme_licenses = new Donkey_Theme_Licenses();
     }
 
 }

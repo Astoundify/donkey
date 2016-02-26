@@ -20,23 +20,27 @@ class Donkey_User {
         $response = donkey()->api->authenticated_request( 'https://api.envato.com/v1/market/private/user/username.json', array() );
 
         if ( ! isset( $response->error ) ) {
-            add_user_meta( $this->ID, 'envato_username', $response->username, true );
-        }
+			add_user_meta( $this->ID, 'envato_username', $response->username, true );
 
-        $save = array(
-            'image', 'firstname', 'surname', 'country'
-        );
+			$save = array(
+				'image', 'firstname', 'surname', 'country'
+			);
 
-        $response = donkey()->api->authenticated_request( 'https://api.envato.com/v1/market/private/user/account.json', array() );
+			$response = donkey()->api->authenticated_request( 'https://api.envato.com/v1/market/private/user/account.json', array() );
 
-        if ( ! isset( $response->error ) ) {
-            update_user_meta( $this->ID, 'envato_image', $response->account->image );
-            update_user_meta( $this->ID, 'envato_firstname', $response->account->firstname );
-            update_user_meta( $this->ID, 'envato_surname', $response->account->surname );
-            update_user_meta( $this->ID, 'envato_country', $response->account->country );
-        }
+			if ( ! isset( $response->error ) ) {
+				update_user_meta( $this->ID, 'envato_image', $response->account->image );
+				update_user_meta( $this->ID, 'envato_firstname', $response->account->firstname );
+				update_user_meta( $this->ID, 'envato_surname', $response->account->surname );
+				update_user_meta( $this->ID, 'envato_country', $response->account->country );
+			}
 
-        add_user_meta( $this->ID, 'envato_account', true, true );
+			add_user_meta( $this->ID, 'envato_account', true, true );
+		} else {
+			$this->clear_access_token();
+
+            donkey()->flash->set( $response->error );
+		}
     }
 
     public function get_envato_username() {
@@ -108,29 +112,37 @@ class Donkey_User {
     }
 
     public function validate_licenses() {
-        $licenses = $this->get_licenses();
+		$key = 'donkey_user_' . $this->ID . '_licenses_validated';
 
-        if ( empty( $licenses ) ) {
-            return;
-        }
+		// if ( false === ( $has_validated_today = get_transient( $key ) ) ) {
+			$licenses = $this->get_licenses();
 
-        foreach ( $licenses as $license ) {
-            $license  = donkey_get_license( $license );
-            $response = donkey()->api->authenticated_request( 'market/buyer/purchase', array(
-                'code' => $license->get_code()
-            ) );
+			if ( empty( $licenses ) ) {
+				return;
+			}
 
-            // no longer valid
-            if ( isset( $response->error ) ) {
-                $license->delete();
-            } else {
-            // update expiration if changed
-                $license->update( array(
-                    'id' => $license->get_id(),
-                    'expiration' => $response->supported_until
-                ) );
-            }
-        }
+			foreach ( $licenses as $license ) {
+				$license  = donkey_get_license( $license );
+				$response = donkey()->api->authenticated_request( 'market/buyer/purchase', array(
+					'code' => $license->get_code()
+				) );
+
+				// a valid response, but has an error (refunded)
+				if ( isset( $response->error ) && 200 == $response->code ) {
+					$license->delete();
+				} else {
+					if ( isset( $response->supported_until ) && (bool)strtotime( $response->supported_until ) )  {
+						// update expiration if changed
+						$license->update( array(
+							'id' => $license->get_id(),
+							'expiration' => $response->supported_until
+						) );
+					}
+				}
+			}
+
+			// set_transient( $key, true, 12 * HOUR_IN_SECONDS );
+		// }
     }
 
 }

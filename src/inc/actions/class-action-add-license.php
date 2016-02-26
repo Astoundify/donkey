@@ -25,7 +25,7 @@ class Donkey_Add_License {
         $error = false;
 
         if ( isset( $response->error ) ) {
-            $error = donkey()->flash->set( $response->description );
+            $error = donkey()->flash->set( $response->error );
         }
 
         if ( ! $error ) {
