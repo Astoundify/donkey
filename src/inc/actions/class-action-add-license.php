@@ -61,7 +61,7 @@ class Donkey_Add_License {
                 // ghetto redirect
                 unset( $_REQUEST[ 'donkey-page' ] );
             } else {
-                donkey()->flash->set( __( 'Unable to add license. Is it valid?', 'donkey' ) );
+                donkey()->flash->set( __( 'Unable to add license. If your support has expired please visit the item purchase page to renew.', 'donkey' ) );
             }
         }
     }
