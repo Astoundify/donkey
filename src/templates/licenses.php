@@ -13,7 +13,7 @@
 
     <ul>
         <li><a href="<?php echo esc_url( add_query_arg( 'donkey-page', 'add-license', donkey_get_page_url( 'licenses' )  ) ); ?>"><?php _e( 'Add License', 'donkey' ); ?></a></li>
-        <li><a href="http://themeforest.net/user/astoundify/portfolio?ref=Astoundify"><?php _e( 'Purchase Licenses', 'donkey' ); ?></a></li>
+        <li><a href="http://themeforest.net/user/astoundify/portfolio?ref=Astoundify"><?php _e( 'Purchase Licenses or <strong>Extend Support</strong>', 'donkey' ); ?></a></li>
         <li><a href="<?php echo donkey_get_page_url( 'submit' ); ?>"><?php _e( 'Submit Ticket', 'donkey' ); ?></a></li>
     </ul>
 
