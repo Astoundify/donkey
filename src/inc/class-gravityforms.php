@@ -9,7 +9,7 @@ class Donkey_GravityForms {
     public function filter_fields() {
         $form = donkey_get_setting( 'gravityform' );
 
-		add_filter( 'gform_pre_render_' . $form, array( $this, 'login' ) );
+		// add_filter( 'gform_pre_render_' . $form, array( $this, 'login' ) );
 
         add_filter( 'gform_pre_render_' . $form, array( $this, 'populate_licenses' ) );
         add_filter( 'gform_pre_validation_' . $form, array( $this, 'populate_licenses' ) );
