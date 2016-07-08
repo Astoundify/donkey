@@ -28,7 +28,7 @@ class Donkey_EDD_SL {
             $download = get_post( edd_software_licensing()->get_download_by_license( $key ) );
             $status = edd_software_licensing()->get_license_status( $license->ID );
 
-            if ( 0 === $download->ID || 'active' != $status ) {
+            if ( 0 === $download->ID || 'expired' == $status ) {
                 continue;
             }
 
