@@ -35,7 +35,6 @@ class Donkey_GravityForms {
             $choices  = array();
 
             if ( ! empty( $licenses ) ) {
-                $choices[] = array( 'value' => 'no-licenses', 'text' => __( 'Choose a license', 'donkey' ) );
                 foreach ( $licenses as $license ) {
                     $license = donkey_get_license( $license );
 
@@ -45,6 +44,7 @@ class Donkey_GravityForms {
 
                     $choices[] = array( 'value' => 'valid-' . sanitize_title( $license->get_item_name() ), 'text' => $license->get_item_name() );
                 }
+
             } else {
                 $choices[] = array( 'value' => 'no-licenses', 'text' => __( 'Please add a valid Envato license code.', 'donkey' ) );
             }

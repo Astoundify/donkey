@@ -9,22 +9,14 @@ class Donkey_Actions {
     }
 
     public function include_actions() {
-        $files = array(
-            'class-action-add-license.php',
-            'class-action-delete-license.php',
-            'class-action-renew-license.php'
-        );
+        $files = array();
 
         foreach ( $files as $file ) {
             require( trailingslashit( donkey()->plugin_dir ) . trailingslashit( 'inc/actions' ) . $file );
         }
     }
 
-    public function register_actions() {
-        $this->add_license = new Donkey_Add_License();
-        $this->delete_license = new Donkey_Delete_License();
-        $this->renew_license = new Donkey_Renew_License();
-    }
+    public function register_actions() {}
 
     public function action_handler() {
         if ( ! isset( $_REQUEST[ 'donkey-action' ] ) ) {

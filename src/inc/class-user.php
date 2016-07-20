@@ -32,19 +32,65 @@ class Donkey_User {
         return $this->user->envato_country;
     }
 
-    public function get_refresh_token() {
-        return $this->user->envato_refresh_token;
+    public function get_token_timestamp() {
+        return $this->user->envato_token_timestamp;
     }
 
     public function get_licenses() {
         global $wpdb;
 
-        // $licenses = $wpdb->get_col( $wpdb->prepare( "SELECT id FROM {$wpdb->prefix}donkey_licenses WHERE user_id = '%s'", $this->ID ) );
-
-		if ( isset( $license->supported_until ) && ( strtotime( $license->supported_until ) < current_time( 'timestamp'  ) ) ) {
+		// if they have accessed Envato in the previous 3 hours use their exising licenses
+		// only check once an hour
+		if ( $this->get_token_timestamp() < ( current_time( 'timestamp' ) + 3600 ) && $this->user->envato_licenses ) {
+			return $this->user->envato_licenses;
 		}
 
-        return $licenses;
+		$licenses = array();
+		$request_token = \edd_envato_login\envato_api\Functions::get_user_token( $this->ID );
+
+		if ( $request_token ) {
+			$access_token = $request_token[ 'access_token' ];
+		}
+
+		// couldn't reach Envato so they have no licenses
+		if ( ! $access_token ) {
+			return $licenses;
+		}
+
+		$args = array(
+			'headers' => array(
+				'Authorization' => 'Bearer ' . esc_attr( $access_token ),
+			),
+		);
+
+		$url = 'https://api.envato.com/v3/market/buyer/list-purchases';
+
+		$raw_response = wp_remote_get( esc_url_raw( $url ), $args );
+
+		if ( ! is_wp_error( $raw_response ) || 200 == wp_remote_retrieve_response_code( $raw_response ) ) {
+			$response = json_decode( wp_remote_retrieve_body( $raw_response ), true );
+			$whitelist = donkey_get_allowed_products();
+
+			foreach ( $response[ 'results' ] as $purchase => $purchase_data ) {
+				if ( ! in_array( $purchase_data[ 'item' ][ 'id' ], $whitelist ) ) {
+					continue;
+				}
+
+				$licenses[ $purchase_data[ 'code' ] ] = array(
+					'id' => $purchase_data[ 'code' ],
+					'item_id' => $purchase_data[ 'item' ][ 'id' ],
+					'item_name' => $purchase_data[ 'item' ][ 'name' ],
+					'item_url' => $purchase_data[ 'item' ][ 'url' ],
+					'code' => $purchase_data[ 'code' ],
+					'expiration' => $purchase_data[ 'supported_until' ],
+					'support_amount' => $purchase_data[ 'support_amount' ]
+				);
+			}
+
+			update_user_meta( $this->ID, 'envato_licenses', $licenses, $this->user->envato_licenses );
+		}
+
+		return $licenses;
     }
 
 }

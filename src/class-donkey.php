@@ -30,12 +30,10 @@ class Donkey {
             'class-flash.php',
             'class-template.php',
             'class-textdomain.php',
-            'class-api.php',
             'class-user.php',
             'class-actions.php',
             'class-shortcodes.php',
             'class-license.php',
-            'class-theme-licenses.php',
             'class-settings.php',
             'class-gravityforms.php',
             'class-edd-sl.php',
@@ -54,8 +52,6 @@ class Donkey {
         $this->flash        = new Donkey_Flash();
         $this->template     = new Donkey_Template();
         $this->textdomain   = new Donkey_Textdomain();
-        $this->api          = new Donkey_Envato_API();
-        $this->oauth        = new Donkey_Envato_oAuth();
         $this->shortcodes   = new Donkey_Shortcodes();
         $this->actions      = new Donkey_Actions();
         $this->settings     = new Donkey_Settings();
@@ -63,7 +59,6 @@ class Donkey {
         $this->eddsl        = new Donkey_EDD_SL();
         $this->helpscout    = new Donkey_Helpscout();
         $this->admin        = new Donkey_Admin();
-		$this->theme_licenses = new Donkey_Theme_Licenses();
     }
 
 }

@@ -21,26 +21,8 @@ class Donkey_Settings {
                 'default' => '',
                 'type' => 'text'
             ),
-            'helpscout_email' => array(
-                'label' => __( 'Helpscout Email', 'donkey' ),
-                'section' => 'general',
-                'default' => '',
-                'type' => 'text'
-            ),
             'product_whitelist' => array(
                 'label' => __( 'Product Whitelist', 'donkey' ),
-                'section' => 'general',
-                'default' => '',
-                'type' => 'text'
-            ),
-            'page_licenses' => array(
-                'label' => __( 'Licenses Page ID', 'donkey' ),
-                'section' => 'general',
-                'default' => '',
-                'type' => 'text'
-            ),
-            'page_submit' => array(
-                'label' => __( 'Submit Page ID', 'donkey' ),
                 'section' => 'general',
                 'default' => '',
                 'type' => 'text'

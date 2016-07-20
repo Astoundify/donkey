@@ -16,17 +16,13 @@ class Donkey_Admin {
     }
 
     public function includes() {
-        $files = array(
-            'class-admin-edit-user.php',
-        );
+        $files = array();
 
         foreach ( $files as $file ) {
             require( trailingslashit( donkey()->plugin_dir ) . trailingslashit( 'inc/admin' ) . $file );
         }
     }
 
-    public function setup() {
-        $this->edit_user = new Donkey_Admin_Edit_User();
-    }
+    public function setup() {}
 
 }

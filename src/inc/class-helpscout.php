@@ -49,8 +49,6 @@ class Donkey_Helpscout {
     private function fetchHtml( $data ) {
         global $wpdb;
 
-        $hs_email = donkey_get_setting( 'helpscout_email' );
-
         $html = array();
 
         $email = $data[ 'customer' ][ 'email' ];
