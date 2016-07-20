@@ -46,6 +46,7 @@ class Donkey_User {
 		}
 
 		$licenses = array();
+		$access_token = false;
 		$request_token = \edd_envato_login\envato_api\Functions::get_user_token( $this->ID );
 
 		if ( $request_token ) {

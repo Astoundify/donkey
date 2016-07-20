@@ -8,9 +8,8 @@
 <table>
 	<thead>
 		<tr>
-			<th width="60%"><?php _e( 'Item', 'donkey' ); ?></th>
+			<th width="70%"><?php _e( 'Item', 'donkey' ); ?></th>
 			<th><?php _e( 'Support Status', 'donkey' ); ?></th>
-			<th width="10%"></td>
 		</tr>
 	</thead>
 	<tbody>
@@ -30,7 +29,6 @@
 			</span><br />
 			<a href="<?php echo $license->get_renew_url(); ?>"><?php _e( 'Extend Support', 'donkey' ); ?></a>
 		</td>
-		<td style="vertical-align: middle; text-align: right;"><a href="<?php echo $license->get_delete_url(); ?>">&times;</a></td>
 	</tr>
 	<?php endforeach; ?>
 	</tbody>

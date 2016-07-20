@@ -63,4 +63,8 @@ class Donkey_License {
         return strtotime( $this->get_expiration() ) > current_time( 'timestamp' );
     }
 
+	public function get_renew_url() {
+		return esc_url( $this->get_item_url() );
+	}
+
 }
