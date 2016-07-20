@@ -9,8 +9,6 @@ class Donkey_GravityForms {
     public function filter_fields() {
         $form = donkey_get_setting( 'gravityform' );
 
-		add_filter( 'the_content', array( $this, 'filter_shortcode_login' ) );
-
         add_filter( 'gform_pre_render_' . $form, array( $this, 'populate_licenses' ) );
         add_filter( 'gform_pre_validation_' . $form, array( $this, 'populate_licenses' ) );
         add_filter( 'gform_pre_submission_filter_' . $form, array( $this, 'populate_licenses' ) );
@@ -18,26 +16,6 @@ class Donkey_GravityForms {
 
         add_filter( 'gform_pre_send_email', array( $this, 'notification' ) );
     }
-
-	/**
-	 * Display a login form on the support page if the user is not logged in.
-	 *
-	 * @since 1.1.0
-	 *
-	 * @param string $content
-	 * @return mixed
-	 */
-	public function filter_shortcode_login( $content ) {
-		if ( ! is_page( donkey_get_setting( 'page_submit' ) ) ) {
-			return $content;
-		}
-
-		if ( is_user_logged_in() ) {
-			return $content;
-		}
-
-		return donkey()->template->find( 'login.php' );
-	}
 
     public function notification( $email ) {
         $bad = array( 'WordPress Directory Theme', 'Marketplace WordPress Theme', 'WordPress Job Board Theme', 'WP Job Manager', '-', '--', '—'  );

@@ -15,18 +15,6 @@ class Donkey_Settings {
 
     public function set_settings() {
         $this->settings = apply_filters( 'donkey_settings', array(
-            'client_id' => array(
-                'label' => __( 'Client ID', 'donkey' ),
-                'section' => 'general',
-                'default' => '',
-                'type' => 'text'
-            ),
-            'client_secret' => array(
-                'label' => __( 'Client Secret', 'donkey' ),
-                'section' => 'general',
-                'default' => '',
-                'type' => 'text'
-            ),
             'helpscout_secret' => array(
                 'label' => __( 'Helpscout Secret Key', 'donkey' ),
                 'section' => 'general',

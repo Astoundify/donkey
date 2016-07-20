@@ -12,8 +12,7 @@ class Donkey_Actions {
         $files = array(
             'class-action-add-license.php',
             'class-action-delete-license.php',
-            'class-action-renew-license.php',
-            'class-action-disconnect-oauth.php'
+            'class-action-renew-license.php'
         );
 
         foreach ( $files as $file ) {
@@ -25,7 +24,6 @@ class Donkey_Actions {
         $this->add_license = new Donkey_Add_License();
         $this->delete_license = new Donkey_Delete_License();
         $this->renew_license = new Donkey_Renew_License();
-        $this->disconnect_oauth = new Donkey_Disconnect_oAuth();
     }
 
     public function action_handler() {

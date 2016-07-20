@@ -32,7 +32,6 @@ class Donkey {
             'class-textdomain.php',
             'class-api.php',
             'class-user.php',
-            'class-oauth.php',
             'class-actions.php',
             'class-shortcodes.php',
             'class-license.php',
