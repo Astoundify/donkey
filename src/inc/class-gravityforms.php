@@ -71,11 +71,13 @@ class Donkey_GravityForms {
                 }
             }
 
+			$choices = apply_filters( 'donkey_gravityforms_populate_license_choices', $choices );
+
 			if ( empty( $choices ) ) {
 				$choices[] = array( 'value' => 'no-licenses', 'text' => __( 'No theme or plugin licenses found.', 'donkey' ) );
 			}
 
-			$field->choices = apply_filters( 'donkey_gravityforms_populate_license_choices', $choices );
+			$field->choices = $choices;
 
         }
 
