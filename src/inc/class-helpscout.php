@@ -56,10 +56,12 @@ class Donkey_Helpscout {
         $user = donkey_get_user( $user->ID );
         $licenses = $user->get_licenses();
 
-        $html[] = '<p>Envato Username: <strong>' . $user->get_envato_username() . '</strong></p>';
+		if ( '' != $user->get_envato_username() ) {
+			$html[] = '<p>Envato Username: <strong>' . $user->get_envato_username() . '</strong></p>';
 
-		if ( '' != $user->get_envato_display_name() ) {
-	        $html[] = '<p>' . $user->get_envato_display_name() . ', ' . $user->get_envato_country() . '</p>';
+			if ( '' != $user->get_envato_display_name() ) {
+				$html[] = '<p>' . $user->get_envato_display_name() . ', ' . $user->get_envato_country() . '</p>';
+			}
 		}
 
         if ( ! empty( $licenses ) ) {
@@ -75,7 +77,7 @@ class Donkey_Helpscout {
 				$html[] = '<table>';
                 $html[] = '<tr>';
                 $html[] = '<td style="border: 1px solid #ccc;"><strong>' . $name . '</strong></td>';
-                $html[] = '<td style="border: 1px solid #ccc;">' . ( $license->is_active() ? 'Active' : '<span style="color: red;">Expired</span>' ) . '</td>';
+                $html[] = '<td style="border: 1px solid #ccc;"><span style="badge ' . ( $license->is_active() ? 'green' : 'red' ) . ' ">' . $license->is_active() ? 'Valid' : 'Expired' . '</span></td>';
 				$html[] = '</tr>';
                 $html[] = '<tr>';
                 $html[] = '<td colspan="2" style="border: 1px solid #ccc;">' . $license->get_code() . '</td>';
