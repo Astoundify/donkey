@@ -47,7 +47,7 @@ class Donkey_GravityForms {
     }
 
     function populate_licenses( $form ) {
-		$choices = $all_choices = array();
+		$choices = array();
 
         foreach ( $form[ 'fields' ] as $field ) {
             if ( $field->type != 'select' || strpos( $field->cssClass, 'donkey-licenses' ) === false ) {
@@ -71,13 +71,13 @@ class Donkey_GravityForms {
                 }
             }
 
-			$field->choices = $all_choices = apply_filters( 'donkey_gravityforms_populate_license_choices', $choices );
+			if ( empty( $choices ) ) {
+				$choices = array( 'value' => 'no-licenses', 'text' => __( 'No theme or plugin licenses found.', 'donkey' ) );
+			}
+
+			$field->choices = apply_filters( 'donkey_gravityforms_populate_license_choices', $choices );
 
         }
-
-		if ( empty( $all_choices ) ) {
-			$choices = array( 'value' => 'no-licenses', 'text' => __( 'No theme or plugin licenses found.', 'donkey' ) );
-		}
 
         return $form;
     }
