@@ -37,7 +37,12 @@ class Donkey_User {
     }
 
     public function get_licenses() {
-        global $wpdb;
+		$licenses = array();
+
+		/* Already Connected to Envato */
+		if ( ! wp_get_current_user()->envato_refresh_token ) {
+			return $licenses;
+		}
 
 		// if they have accessed Envato in the previous 3 hours use their exising licenses
 		// only check once an hour
@@ -45,7 +50,6 @@ class Donkey_User {
 			return $this->user->envato_licenses;
 		}
 
-		$licenses = array();
 		$access_token = false;
 		$request_token = \edd_envato_login\envato_api\Functions::get_user_token( $this->ID );
 

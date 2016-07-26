@@ -32,7 +32,7 @@ class Donkey_EDD_SL {
                 continue;
             }
 
-            $choices[] = array( 'value' => 'valid-' . sanitize_title( get_the_title( $download->ID ) ), 'text' => get_the_title( $download->ID ) );
+			$choices[] = array( 'value' => 'valid-' . sanitize_title( get_the_title( $download->ID ) ), 'text' => get_the_title( $download->ID ) . ' &mdash; Expires: ' . date_i18n( get_option( 'date_format' ), strtotime( edd_software_licensing()->get_license_expiration( $license->ID ) ) ) );
         }
 
         return $choices;
