@@ -46,30 +46,30 @@ class Donkey_GravityForms {
         return $email;
     }
 
-    function populate_licenses( $form ) {
+	function populate_licenses( $form ) {
 		$choices = array();
 
-        foreach ( $form[ 'fields' ] as $field ) {
-            if ( $field->type != 'select' || strpos( $field->cssClass, 'donkey-licenses' ) === false ) {
-                continue;
-            }
+		foreach ( $form[ 'fields' ] as $field ) {
+			if ( $field->type != 'select' || strpos( $field->cssClass, 'donkey-licenses' ) === false ) {
+				continue;
+			}
 
-            $licenses = apply_filters( 'donkey_gravityforms_populate_licenses', donkey_get_user()->get_licenses() );
+			$licenses = apply_filters( 'donkey_gravityforms_populate_licenses', donkey_get_user()->get_licenses() );
 
-            if ( ! empty( $licenses ) ) {
-                foreach ( $licenses as $license ) {
-                    $license = donkey_get_license( $license );
+			if ( ! empty( $licenses ) ) {
+				foreach ( $licenses as $license ) {
+					$license = donkey_get_license( $license );
 
-                    if ( ! $license->is_active() ) {
-                        continue;
-                    }
+					if ( ! $license->is_active() ) {
+					continue;
+					}
 
 					$bad = array( 'WordPress Directory Theme', 'Marketplace WordPress Theme', 'WordPress Job Board Theme', 'WP Job Manager', '-', '--', '—'  );
 					$name = trim( str_replace( $bad, '', $license->get_item_name() ) );
 
-                    $choices[] = array( 'value' => 'valid-' . sanitize_title( $license->get_item_name() ), 'text' => $name . ' &mdash; Expires: ' . esc_attr( $license->get_expiration( get_option( 'date_format' ) ) ) );
-                }
-            }
+					$choices[] = array( 'value' => 'valid-' . sanitize_title( $license->get_item_name() ), 'text' => $name . ' &mdash; Expires: ' . esc_attr( $license->get_expiration( get_option( 'date_format' ) ) ) );
+				}
+			}
 
 			$choices = apply_filters( 'donkey_gravityforms_populate_license_choices', $choices );
 
@@ -79,9 +79,9 @@ class Donkey_GravityForms {
 
 			$field->choices = $choices;
 
-        }
+		}
 
-        return $form;
-    }
+		return $form;
+	}
 
 }
