@@ -45,7 +45,7 @@ class Donkey_User {
 
 		// if the user has an active access token and previously populated licenses, just return those.
 		// this will avoid hammering the API or trying to ping it when it is (likely) down
-		if ( $this->get_token_expire_time() < ( current_time( 'timestamp' ) && $this->user->envato_licenses ) ) {
+		if ( ( $this->get_token_expire_time() < time() ) && $this->user->envato_licenses ) {
 			return $this->user->envato_licenses;
 		}
 
