@@ -36,17 +36,16 @@ class Donkey_User {
         return $this->user->envato_token_timestamp;
     }
 
+    public function get_token_expire_time() {
+        return $this->user->envato_token_expire_time;
+    }
+
     public function get_licenses() {
 		$licenses = array();
 
-		/* Already Connected to Envato */
-		if ( ! wp_get_current_user()->envato_refresh_token ) {
-			return $licenses;
-		}
-
-		// if they have accessed Envato in the previous 3 hours use their exising licenses
-		// only check once an hour
-		if ( $this->get_token_timestamp() < ( current_time( 'timestamp' ) + 3600 ) && $this->user->envato_licenses ) {
+		// if the user has an active access token and previously populated licenses, just return those.
+		// this will avoid hammering the API or trying to ping it when it is (likely) down
+		if ( $this->get_token_expire_time() < ( current_time( 'timestamp' ) && $this->user->envato_licenses ) ) {
 			return $this->user->envato_licenses;
 		}
 
