@@ -42,15 +42,13 @@ class Donkey_User {
 
     public function get_licenses() {
 		$licenses = array();
+		$request_token = \edd_envato_login\envato_api\Functions::get_user_token( $this->ID );
 
-		// if the user has an active access token and previously populated licenses, just return those.
-		// this will avoid hammering the API or trying to ping it when it is (likely) down
-		if ( ( $this->get_token_expire_time() < time() ) && $this->user->envato_licenses ) {
+		if ( $request_token ) {
 			return $this->user->envato_licenses;
 		}
 
 		$access_token = false;
-		$request_token = \edd_envato_login\envato_api\Functions::get_user_token( $this->ID );
 
 		if ( $request_token ) {
 			$access_token = $request_token[ 'access_token' ];
