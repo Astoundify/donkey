@@ -42,17 +42,7 @@ class Donkey_User {
 
     public function get_licenses() {
 		$licenses = array();
-		$request_token = \edd_envato_login\envato_api\Functions::get_user_token( $this->ID );
-
-		if ( $request_token ) {
-			return $this->user->envato_licenses;
-		}
-
-		$access_token = false;
-
-		if ( $request_token ) {
-			$access_token = $request_token[ 'access_token' ];
-		}
+		$access_token = \edd_envato_login\envato_api\Functions::get_user_token( $this->ID );
 
 		// couldn't reach Envato so they have no licenses
 		if ( ! $access_token ) {
