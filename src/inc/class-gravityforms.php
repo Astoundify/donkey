@@ -60,14 +60,23 @@ class Donkey_GravityForms {
 				foreach ( $licenses as $license ) {
 					$license = donkey_get_license( $license );
 
-					if ( ! $license->is_active() ) {
-					continue;
-					}
-
 					$bad = array( 'WordPress Directory Theme', 'Marketplace WordPress Theme', 'WordPress Job Board Theme', 'WP Job Manager', '-', '--', '—'  );
 					$name = trim( str_replace( $bad, '', $license->get_item_name() ) );
 
-					$choices[] = array( 'value' => 'valid-' . sanitize_title( $license->get_item_name() ), 'text' => $name . ' &mdash; Expires: ' . esc_attr( $license->get_expiration( get_option( 'date_format' ) ) ) );
+					/* Expired License */
+					if ( ! $license->is_active() ) {
+						$choices[] = array(
+							'value' => 'expired-' . sanitize_title( $license->get_item_name() ),
+							'text'  => $name . ' &mdash; Support Expired: ' . esc_attr( $license->get_expiration( get_option( 'date_format' ) ) ),
+						);
+					}
+					/* Valid License */
+					else{
+						$choices[] = array(
+							'value' => 'valid-' . sanitize_title( $license->get_item_name() ),
+							'text'  => $name . ' &mdash; Expires: ' . esc_attr( $license->get_expiration( get_option( 'date_format' ) ) ),
+						);
+					}
 				}
 			}
 
