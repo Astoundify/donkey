@@ -74,7 +74,7 @@ class Donkey_GravityForms {
 					else{
 						$choices[] = array(
 							'value' => 'valid-' . sanitize_title( $license->get_item_name() ),
-							'text'  => $name . ' &mdash; Expires: ' . esc_attr( $license->get_expiration( get_option( 'date_format' ) ) ),
+							'text'  => $name
 						);
 					}
 				}
