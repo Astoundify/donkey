@@ -28,7 +28,7 @@ class Donkey_GravityForms {
 	 * @return mixed
 	 */
 	public function filter_shortcode_login( $content ) {
-		if ( ! is_page( donkey_get_setting( 'page_submit' ) ) ) {
+		if ( donkey_get_setting( 'page_submit', false) && ! is_page( donkey_get_setting( 'page_submit' ) ) ) {
 			return $content;
 		}
 
