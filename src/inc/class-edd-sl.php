@@ -25,14 +25,19 @@ class Donkey_EDD_SL {
 
         foreach ( $licenses as $license ) {
             $key = edd_software_licensing()->get_license_key( $license->ID );
-            $download = get_post( edd_software_licensing()->get_download_by_license( $key ) );
+            $download = new EDD_Download( edd_software_licensing()->get_download_by_license( $key ) );
             $status = edd_software_licensing()->get_license_status( $license->ID );
 
-            if ( 0 === $download->ID || 'expired' == $status ) {
+            if ( 0 === $download->ID || $download->is_free() ) {
                 continue;
             }
 
-			$choices[] = array( 'value' => 'valid-' . sanitize_title( get_the_title( $download->ID ) ), 'text' => get_the_title( $download->ID ) . ' &mdash; Expires: ' . date_i18n( get_option( 'date_format' ), strtotime( edd_software_licensing()->get_license_expiration( $license->ID ) ) ) );
+			if ( 'expired' != $status ) {
+				$choices[] = array( 'value' => 'expired-' . sanitize_title( get_the_title( $download->ID ) ), 'text' => get_the_title( $download->ID ) . '  &mdash; Expired: ' . date_i18n( get_option( 'date_format' ), strtotime( edd_software_licensing()->get_license_expiration( $license->ID ) ) ) );
+
+			} else {
+				$choices[] = array( 'value' => 'valid-' . sanitize_title( get_the_title( $download->ID ) ), 'text' => get_the_title( $download->ID ) );
+			}
         }
 
         return $choices;
