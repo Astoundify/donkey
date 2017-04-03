@@ -67,7 +67,7 @@ class Donkey_GravityForms {
 					if ( ! $license->is_active() ) {
 						$choices[] = array(
 							'value' => 'expired-' . sanitize_title( $license->get_item_name() ),
-							'text'  => $name . ' &mdash; Expired: ' . esc_attr( $license->get_expiration( get_option( 'date_format' ) ) ),
+							'text'  => $name . ' &mdash; Expired: ' . esc_attr( $license->get_expiration( get_option( 'date_format' ) ) )
 						);
 					}
 					/* Valid License */

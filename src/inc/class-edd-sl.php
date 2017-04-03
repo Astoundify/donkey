@@ -35,7 +35,7 @@ class Donkey_EDD_SL {
 			if ( 'expired' != $status ) {
 				$choices[] = array( 'value' => 'valid-' . sanitize_title( get_the_title( $download->ID ) ), 'text' => get_the_title( $download->ID ) );
 			} else {
-				$choices[] = array( 'value' => 'expired-' . sanitize_title( get_the_title( $download->ID ) ), 'text' => get_the_title( $download->ID ) . '  &mdash; Expired: ' . date_i18n( get_option( 'date_format' ), strtotime( edd_software_licensing()->get_license_expiration( $license->ID ) ) ) );
+				$choices[] = array( 'value' => 'expired-' . sanitize_title( get_the_title( $download->ID ) ), 'text' => get_the_title( $download->ID ) . '  &mdash; Expired: ' . date_i18n( get_option( 'date_format' ), edd_software_licensing()->get_license_expiration( $license->ID ) ) );
 			}
         }
 
