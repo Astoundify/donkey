@@ -8,7 +8,7 @@ class Donkey_GravityForms {
 
     public function filter_fields() {
         $form = donkey_get_setting( 'gravityform' );
-		
+
 		add_filter( 'the_content', array( $this, 'filter_shortcode_login' ) );
 
         add_filter( 'gform_pre_render_' . $form, array( $this, 'populate_licenses' ) );
@@ -50,6 +50,7 @@ class Donkey_GravityForms {
 		$choices = array();
 
 		foreach ( $form[ 'fields' ] as $field ) {
+
 			if ( $field->type != 'select' || strpos( $field->cssClass, 'donkey-licenses' ) === false ) {
 				continue;
 			}
@@ -60,7 +61,7 @@ class Donkey_GravityForms {
 				foreach ( $licenses as $license ) {
 					$license = donkey_get_license( $license );
 
-					$bad = array( 'WordPress Directory Theme', 'Marketplace WordPress Theme', 'WordPress Job Board Theme', 'WP Job Manager', '-', '--', '—'  );
+					$bad = array( 'Build Your Own WooCommerce Marketplace.', 'WordPress Directory Theme', 'Marketplace WordPress Theme', 'WordPress Job Board Theme', 'WP Job Manager', '-', '--', '—' );
 					$name = trim( str_replace( $bad, '', $license->get_item_name() ) );
 
 					/* Expired License */
@@ -69,9 +70,7 @@ class Donkey_GravityForms {
 							'value' => 'expired-' . sanitize_title( $license->get_item_name() ),
 							'text'  => $name . ' &mdash; Expired: ' . esc_attr( $license->get_expiration( get_option( 'date_format' ) ) )
 						);
-					}
-					/* Valid License */
-					else{
+					} else { /* Valid License */
 						$choices[] = array(
 							'value' => 'valid-' . sanitize_title( $license->get_item_name() ),
 							'text'  => $name

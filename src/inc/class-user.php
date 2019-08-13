@@ -63,6 +63,16 @@ class Donkey_User {
 			$response = json_decode( wp_remote_retrieve_body( $raw_response ), true );
 			$whitelist = donkey_get_allowed_products();
 
+			$transient_key = base64_encode( get_current_user_id() ) . '_envato_items';
+			// save a transient with all the items bought by this user.
+			if ( ! empty( $response[ 'results' ] ) ) {
+				set_transient( $transient_key, $response, 3600 );
+
+			} else {
+				set_transient( $transient_key, 'no-themeforest-items', 3600 );
+
+			}
+
 			foreach ( $response[ 'results' ] as $purchase => $purchase_data ) {
 				if ( ! in_array( $purchase_data[ 'item' ][ 'id' ], $whitelist ) ) {
 					continue;
